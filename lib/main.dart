@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'core/routing/app_router.dart';
-import 'core/theme/app_theme.dart';
+import 'services/app_router.dart';
+import 'styles/text_style.dart';
 
 void main() {
   runApp(const MyApp());

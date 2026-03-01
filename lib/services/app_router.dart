@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/auth/presentation/pages/login_page.dart';
-import '../../features/explore/presentation/pages/explore_page.dart';
-import '../../features/home/presentation/pages/home_page.dart';
-import '../../features/home/presentation/pages/main_scaffold.dart';
-import '../../features/orders/presentation/pages/orders_page.dart';
-import '../../features/product/presentation/pages/product_details_page.dart';
-import '../../features/profile/presentation/pages/profile_page.dart';
-import '../../features/wishlist/presentation/pages/wishlist_page.dart';
-import '../../features/explore/presentation/pages/categories_page.dart';
+import '../../app/auth/presentation/Screens/login_Page.dart';
+import '../../app/explore/presentation/Screens/explore_Page.dart';
+import '../../app/home/presentation/Screens/home_Page.dart';
+import '../../app/home/presentation/Screens/main_scaffold.dart';
+import '../../app/orders/presentation/Screens/orders_Page.dart';
+import '../../app/product/presentation/Screens/product_details_Page.dart';
+import '../../app/profile/presentation/Screens/profile_Page.dart';
+import '../../app/wishlist/presentation/Screens/wishlist_Page.dart';
+import '../../app/explore/presentation/Screens/categories_Page.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'root',
@@ -30,14 +30,14 @@ class AppRouter {
     navigatorKey: _rootNavigatorKey,
     initialLocation: '/login',
     routes: [
-      GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
+      GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
       GoRoute(
         path: '/product-details',
-        builder: (context, state) => const ProductDetailsPage(),
+        builder: (context, state) => const ProductDetailsScreen(),
       ),
       GoRoute(
         path: '/categories',
-        builder: (context, state) => const CategoriesPage(),
+        builder: (context, state) => const CategoriesScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -49,7 +49,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: '/home',
-                builder: (context, state) => const HomePage(),
+                builder: (context, state) => const HomeScreen(),
               ),
             ],
           ),
@@ -58,7 +58,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: '/explore',
-                builder: (context, state) => const ExplorePage(),
+                builder: (context, state) => const ExploreScreen(),
               ),
             ],
           ),
@@ -67,7 +67,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: '/orders',
-                builder: (context, state) => const OrdersPage(),
+                builder: (context, state) => const OrdersScreen(),
               ),
             ],
           ),
@@ -76,7 +76,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: '/wishlist',
-                builder: (context, state) => const WishlistPage(),
+                builder: (context, state) => const WishlistScreen(),
               ),
             ],
           ),
@@ -85,7 +85,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: '/profile',
-                builder: (context, state) => const ProfilePage(),
+                builder: (context, state) => const ProfileScreen(),
               ),
             ],
           ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
+import 'package:multi_vendor_e_commerce/styles/colors.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
