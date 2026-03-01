@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
+import '../widget/explore_category_card.dart';
+import '../widget/explore_collection_card.dart';
 
 class CategoriesPage extends StatelessWidget {
   const CategoriesPage({super.key});
@@ -74,27 +76,35 @@ class CategoriesPage extends StatelessWidget {
               crossAxisSpacing: 16,
               childAspectRatio: 1.1,
               children: [
-                _buildCategoryCard(
-                  'Electronics',
-                  '1.2k+ Items',
-                  Colors.black87,
+                const ExploreCategoryCard(
+                  title: 'Electronics',
+                  subtitle: '1.2k+ Items',
+                  color: Colors.black87,
                 ),
-                _buildCategoryCard(
-                  'Fashion',
-                  '4.3k+ Items',
-                  Colors.brown[300]!,
+                ExploreCategoryCard(
+                  title: 'Fashion',
+                  subtitle: '4.3k+ Items',
+                  color: Colors.brown[300]!,
                 ),
-                _buildCategoryCard(
-                  'Home & Living',
-                  '2.8k+ Items',
-                  Colors.grey[400]!,
+                ExploreCategoryCard(
+                  title: 'Home & Living',
+                  subtitle: '2.8k+ Items',
+                  color: Colors.grey[400]!,
                 ),
-                _buildCategoryCard('Beauty', '950 Items', Colors.pink[200]!),
-                _buildCategoryCard('Sports', '1.5k+ Items', Colors.green[300]!),
-                _buildCategoryCard(
-                  'Toys & Games',
-                  '600+ Items',
-                  Colors.teal[300]!,
+                ExploreCategoryCard(
+                  title: 'Beauty',
+                  subtitle: '950 Items',
+                  color: Colors.pink[200]!,
+                ),
+                ExploreCategoryCard(
+                  title: 'Sports',
+                  subtitle: '1.5k+ Items',
+                  color: Colors.green[300]!,
+                ),
+                ExploreCategoryCard(
+                  title: 'Toys & Games',
+                  subtitle: '600+ Items',
+                  color: Colors.teal[300]!,
                 ),
               ],
             ),
@@ -110,111 +120,26 @@ class CategoriesPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            _buildCollectionCard(
-              Icons.flash_on,
-              'Flash Sale',
-              'Up to 70% off daily deals',
-              Colors.blue,
+            const ExploreCollectionCard(
+              icon: Icons.flash_on,
+              title: 'Flash Sale',
+              subtitle: 'Up to 70% off daily deals',
+              iconColor: Colors.blue,
             ),
-            _buildCollectionCard(
-              Icons.eco,
-              'Eco-Friendly',
-              'Sustainable lifestyle choices',
-              Colors.green,
+            const ExploreCollectionCard(
+              icon: Icons.eco,
+              title: 'Eco-Friendly',
+              subtitle: 'Sustainable lifestyle choices',
+              iconColor: Colors.green,
             ),
-            _buildCollectionCard(
-              Icons.new_releases,
-              'New Arrivals',
-              'Fresh items added this week',
-              Colors.orange,
+            const ExploreCollectionCard(
+              icon: Icons.new_releases,
+              title: 'New Arrivals',
+              subtitle: 'Fresh items added this week',
+              iconColor: Colors.orange,
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildCategoryCard(String title, String subtitle, Color color) {
-    return Container(
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Stack(
-        children: [
-          Positioned(
-            bottom: 16,
-            left: 16,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: const TextStyle(color: Colors.white70, fontSize: 12),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCollectionCard(
-    IconData icon,
-    String title,
-    String subtitle,
-    Color iconColor,
-  ) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey[200]!),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: iconColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(icon, color: iconColor),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: TextStyle(color: Colors.grey[500], fontSize: 12),
-                ),
-              ],
-            ),
-          ),
-          const Icon(Icons.chevron_right, color: Colors.grey),
-        ],
       ),
     );
   }

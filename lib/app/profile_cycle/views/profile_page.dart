@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
+import '../widget/profile_info_row.dart';
+import '../widget/profile_address_card.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -84,22 +86,22 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  _buildInfoRow(
-                    Icons.person_outline,
-                    'FULL NAME',
-                    'Alex Johnson',
+                  const ProfileInfoRow(
+                    icon: Icons.person_outline,
+                    label: 'FULL NAME',
+                    value: 'Alex Johnson',
                   ),
                   const Divider(),
-                  _buildInfoRow(
-                    Icons.phone_outlined,
-                    'PHONE NUMBER',
-                    '+1 (555) 987-6543',
+                  const ProfileInfoRow(
+                    icon: Icons.phone_outlined,
+                    label: 'PHONE NUMBER',
+                    value: '+1 (555) 987-6543',
                   ),
                   const Divider(),
-                  _buildInfoRow(
-                    Icons.calendar_today_outlined,
-                    'DATE OF BIRTH',
-                    'March 15, 1992',
+                  const ProfileInfoRow(
+                    icon: Icons.calendar_today_outlined,
+                    label: 'DATE OF BIRTH',
+                    value: 'March 15, 1992',
                   ),
 
                   const SizedBox(height: 32),
@@ -125,16 +127,17 @@ class ProfilePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
 
-                  _buildAddressCard(
-                    'Home',
-                    '123 Market St. Apt 4B\nSan Francisco, CA 94103',
-                    true,
+                  const ProfileAddressCard(
+                    type: 'Home',
+                    address: '123 Market St. Apt 4B\nSan Francisco, CA 94103',
+                    isDefault: true,
                   ),
                   const SizedBox(height: 16),
-                  _buildAddressCard(
-                    'Work',
-                    '456 Tech Plaza, 5th Floor\nSan Francisco, CA 94105',
-                    false,
+                  const ProfileAddressCard(
+                    type: 'Work',
+                    address:
+                        '456 Tech Plaza, 5th Floor\nSan Francisco, CA 94105',
+                    isDefault: false,
                   ),
 
                   const SizedBox(height: 48),
@@ -143,123 +146,6 @@ class ProfilePage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildInfoRow(IconData icon, String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: [
-          Icon(icon, color: AppColors.textSecondary, size: 24),
-          const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 10,
-                  color: AppColors.textSecondary,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAddressCard(String type, String address, bool isDefault) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey[200]!),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(
-                type == 'Home' ? Icons.home_outlined : Icons.work_outline,
-                color: AppColors.textSecondary,
-              ),
-              const SizedBox(width: 8),
-              Text(type, style: const TextStyle(fontWeight: FontWeight.bold)),
-              const Spacer(),
-              if (isDefault)
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.blue[50],
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: const Text(
-                    'DEFAULT',
-                    style: TextStyle(
-                      color: AppColors.primary,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            address,
-            style: const TextStyle(color: AppColors.textSecondary, height: 1.5),
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  minimumSize: const Size(50, 30),
-                  alignment: Alignment.centerLeft,
-                ),
-                child: const Text(
-                  'EDIT',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                ),
-              ),
-              TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  minimumSize: const Size(50, 30),
-                  alignment: Alignment.centerLeft,
-                ),
-                child: const Text(
-                  'REMOVE',
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }

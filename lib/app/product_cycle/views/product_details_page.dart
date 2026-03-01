@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
+import '../widget/product_spec_chip.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   const ProductDetailsPage({super.key});
@@ -39,7 +40,7 @@ class ProductDetailsPage extends StatelessWidget {
                     top: 16,
                     right: 16,
                     child: CircleAvatar(
-                      backgroundColor: Colors.white.withOpacity(0.8),
+                      backgroundColor: Colors.white.withValues(alpha: 0.8),
                       child: const Icon(
                         Icons.favorite_border,
                         color: Colors.grey,
@@ -58,7 +59,7 @@ class ProductDetailsPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'PREMIUM AUDIO',
                         style: TextStyle(
                           color: AppColors.primary,
@@ -127,17 +128,20 @@ class ProductDetailsPage extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 24),
-                  Row(
+                  const Row(
                     children: [
                       Expanded(
-                        child: _buildSpecChip(
-                          Icons.battery_charging_full,
-                          '40h Battery',
+                        child: ProductSpecChip(
+                          icon: Icons.battery_charging_full,
+                          label: '40h Battery',
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      SizedBox(width: 16),
                       Expanded(
-                        child: _buildSpecChip(Icons.bluetooth, 'BT 5.2'),
+                        child: ProductSpecChip(
+                          icon: Icons.bluetooth,
+                          label: 'BT 5.2',
+                        ),
                       ),
                     ],
                   ),
@@ -222,7 +226,7 @@ class ProductDetailsPage extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               offset: const Offset(0, -4),
               blurRadius: 16,
             ),
@@ -251,28 +255,6 @@ class ProductDetailsPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildSpecChip(IconData icon, String label) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[200]!),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, size: 16, color: AppColors.primary),
-          const SizedBox(width: 8),
-          Text(
-            label,
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-          ),
-        ],
       ),
     );
   }
