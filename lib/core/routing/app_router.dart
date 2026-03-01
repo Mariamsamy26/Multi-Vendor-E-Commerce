@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:multi_vendor_e_commerce/app/auth_cycle/views/login_page.dart';
-import 'package:multi_vendor_e_commerce/app/explore_cycle/views/categories_page.dart';
-import 'package:multi_vendor_e_commerce/app/explore_cycle/views/explore_page.dart';
-import 'package:multi_vendor_e_commerce/app/home_cycle/views/pages/home_page.dart';
-import 'package:multi_vendor_e_commerce/app/home_cycle/views/pages/main_scaffold.dart';
-import 'package:multi_vendor_e_commerce/app/orders_cycle/views/orders_page.dart';
-import 'package:multi_vendor_e_commerce/app/product_cycle/views/product_details_page.dart';
-import 'package:multi_vendor_e_commerce/app/profile_cycle/views/profile_page.dart';
-import 'package:multi_vendor_e_commerce/app/wishlist_cycle/views/wishlist_page.dart';
+
+import '../../app/auth_cycle/views/login_page.dart';
+import '../../app/explore_cycle/views/explore_page.dart';
+import '../../app/home_cycle/views/pages/home_page.dart';
+import '../../app/home_cycle/views/pages/main_scaffold.dart';
+import '../../app/orders_cycle/views/orders_page.dart';
+import '../../app/product_cycle/views/product_details_page.dart';
+import '../../app/profile_cycle/views/profile_page.dart';
+import '../../app/wishlist_cycle/views/wishlist_page.dart';
+import '../../app/explore_cycle/views/categories_page.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'root',
