@@ -10,7 +10,6 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(),
         title: const Text(
           'My Profile',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
