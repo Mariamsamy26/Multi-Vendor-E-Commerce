@@ -119,7 +119,7 @@ class LoginPage extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
                   ),
                   TextButton(
-                    onPadding: EdgeInsets.zero,
+                    style: TextButton.styleFrom(padding: EdgeInsets.zero),
                     onPressed: () {},
                     child: const Text(
                       'Forgot password?',

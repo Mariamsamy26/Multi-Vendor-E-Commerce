@@ -119,7 +119,7 @@ class AppTheme {
         bodyMedium: TextStyle(color: AppColors.textPrimary),
         bodySmall: TextStyle(color: AppColors.textSecondary),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.surface,
         elevation: 0,
         shape: RoundedRectangleBorder(
