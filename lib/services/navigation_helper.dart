@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class Navigation {
-  //* PUSH a new screen (keep history)
+  //* PUSH a new Screen (keep history)
   void goToScreen(BuildContext context, String routeName, {Object? extra}) {
     if (kDebugMode) {
-      print('GO TO SCREEN >> $routeName');
+      print('GO TO Screen >> $routeName');
     }
     context.push(routeName, extra: extra);
   }
@@ -19,12 +19,12 @@ class Navigation {
     Object? extra,
   }) {
     if (kDebugMode) {
-      print('GO TO SCREEN CLEAR ALL >> $routeName');
+      print('GO TO Screen CLEAR ALL >> $routeName');
     }
     context.go(routeName, extra: extra);
   }
 
-  //* Replace last screen
+  //* Replace last Screen
 
   void goToScreenReplace(
     BuildContext context,
@@ -32,12 +32,12 @@ class Navigation {
     Object? extra,
   }) {
     if (kDebugMode) {
-      print('GO TO SCREEN REPLACE >> $routeName');
+      print('GO TO Screen REPLACE >> $routeName');
     }
     context.pushReplacement(routeName, extra: extra);
   }
 
-  //* GO TO SCREEN and receive value when popping back
+  //* GO TO Screen and receive value when popping back
 
   void goToScreenWithGoBack(
     BuildContext context,
@@ -46,7 +46,7 @@ class Navigation {
     Object? extra,
   }) async {
     if (kDebugMode) {
-      print('GO TO SCREEN WITH CALLBACK >> $routeName');
+      print('GO TO Screen WITH CALLBACK >> $routeName');
     }
     context.push(routeName, extra: extra).then(onReturn);
   }

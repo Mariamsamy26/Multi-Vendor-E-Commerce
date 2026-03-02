@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:multi_vendor_e_commerce/app/auth_cycle/views/login_page.dart';
-import 'package:multi_vendor_e_commerce/app/explore_cycle/views/categories_page.dart';
-import 'package:multi_vendor_e_commerce/app/explore_cycle/views/explore_page.dart';
-import 'package:multi_vendor_e_commerce/app/home_cycle/views/pages/home_page.dart';
-import 'package:multi_vendor_e_commerce/app/home_cycle/views/pages/main_scaffold.dart';
-import 'package:multi_vendor_e_commerce/app/orders_cycle/views/orders_page.dart';
-import 'package:multi_vendor_e_commerce/app/product_cycle/views/product_details_page.dart';
-import 'package:multi_vendor_e_commerce/app/profile_cycle/views/profile_page.dart';
-import 'package:multi_vendor_e_commerce/app/wishlist_cycle/views/wishlist_page.dart';
-import 'package:multi_vendor_e_commerce/app/cart_cycle/views/cart_page.dart';
+import 'package:multi_vendor_e_commerce/app/auth_cycle/views/login_screen.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/home_cycle/views/home_screen.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/home_cycle/views/root_screen.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/orders_cycle/views/orders_page.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/product_cycle/views/product_details_page.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/profile_cycle/views/profile_page.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/explore_cycle/views/categories_screen.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/explore_cycle/views/explore_screen.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/wishlist_cycle/views/wishlist_page.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/cart_cycle/views/cart_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'root',
@@ -20,8 +20,8 @@ final GlobalKey<NavigatorState> _shellNavigatorExploreKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellExplore');
 final GlobalKey<NavigatorState> _shellNavigatorOrdersKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellOrders');
-final GlobalKey<NavigatorState> _shellNavigatorWishlistKey =
-    GlobalKey<NavigatorState>(debugLabel: 'shellWishlist');
+final GlobalKey<NavigatorState> _shellNavigatorCartKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shellcart');
 final GlobalKey<NavigatorState> _shellNavigatorProfileKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellProfile');
 
@@ -30,28 +30,28 @@ class AppRouter {
     navigatorKey: _rootNavigatorKey,
     initialLocation: '/login',
     routes: [
-      GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
+      GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
       GoRoute(
         path: '/product-details',
-        builder: (context, state) => ProductDetailsPage(
+        builder: (context, state) => ProductDetailsScreen(
           product: state.extra as dynamic,
         ),
       ),
       GoRoute(
         path: '/wishlist',
-        builder: (context, state) => const WishlistPage(),
+        builder: (context, state) => const WishlistScreen(),
       ),
       GoRoute(
         path: '/cart',
-        builder: (context, state) => const CartPage(),
+        builder: (context, state) => const CartScreen(),
       ),
       GoRoute(
         path: '/categories',
-        builder: (context, state) => const CategoriesPage(),
+        builder: (context, state) => const CategoriesScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
-          return MainScaffold(navigationShell: navigationShell);
+          return RootScreen(navigationShell: navigationShell);
         },
         branches: [
           StatefulShellBranch(
@@ -59,7 +59,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: '/home',
-                builder: (context, state) => const HomePage(),
+                builder: (context, state) => const HomeScreen(),
               ),
             ],
           ),
@@ -68,7 +68,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: '/explore',
-                builder: (context, state) => const ExplorePage(),
+                builder: (context, state) => const ExploreScreen(),
               ),
             ],
           ),
@@ -77,16 +77,16 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: '/orders',
-                builder: (context, state) => const OrdersPage(),
+                builder: (context, state) => const OrdersScreen(),
               ),
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorWishlistKey,
+            navigatorKey: _shellNavigatorCartKey,
             routes: [
               GoRoute(
                 path: '/cart',
-                builder: (context, state) => const CartPage(),
+                builder: (context, state) => const CartScreen(),
               ),
             ],
           ),
@@ -95,7 +95,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: '/profile',
-                builder: (context, state) => const ProfilePage(),
+                builder: (context, state) => const ProfileScreen(),
               ),
             ],
           ),
