@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
+import 'package:provider/provider.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 import '../widget/explore_filter_chip.dart';
 import '../widget/explore_product_list_item.dart';
+import '../../../providers/product_provider.dart';
 
 class ExplorePage extends StatelessWidget {
   const ExplorePage({super.key});
@@ -17,7 +21,9 @@ class ExplorePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.shopping_cart_outlined),
-            onPressed: () {},
+            onPressed: () {
+              Navigation().goToScreen(context, '/cart');
+            },
           ),
         ],
       ),
@@ -77,11 +83,16 @@ class ExplorePage extends StatelessWidget {
 
           // Products List
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemCount: 4,
-              itemBuilder: (context, index) {
-                return ExploreProductListItem(index: index);
+            child: Consumer<ProductProvider>(
+              builder: (context, provider, _) {
+                final products = provider.products;
+                return ListView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    return ExploreProductListItem(product: products[index]);
+                  },
+                );
               },
             ),
           ),

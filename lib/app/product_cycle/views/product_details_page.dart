@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 import '../widget/product_spec_chip.dart';
+import '../../../models/product.dart';
+import '../../../providers/product_provider.dart';
 
 class ProductDetailsPage extends StatelessWidget {
-  const ProductDetailsPage({super.key});
+  final Product? product;
+
+  const ProductDetailsPage({super.key, this.product});
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ProductProvider>(context, listen: false);
+    final prod = product ?? provider.products.first;
+
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(),
@@ -29,21 +37,45 @@ class ProductDetailsPage extends StatelessWidget {
               color: Colors.grey[100],
               child: Stack(
                 children: [
-                  const Center(
-                    child: Icon(
-                      Icons.headphones,
-                      size: 100,
-                      color: Colors.black87,
+                  if (prod.imageUrl.isNotEmpty)
+                    Positioned.fill(
+                      child: Image.network(
+                        prod.imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (c, o, s) => const Center(
+                          child: Icon(Icons.broken_image, size: 80, color: Colors.grey),
+                        ),
+                      ),
+                    )
+                  else
+                    const Center(
+                      child: Icon(
+                        Icons.image,
+                        size: 100,
+                        color: Colors.black38,
+                      ),
                     ),
-                  ),
                   Positioned(
                     top: 16,
                     right: 16,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white.withValues(alpha: 0.8),
-                      child: const Icon(
-                        Icons.favorite_border,
-                        color: Colors.grey,
+                    child: GestureDetector(
+                      onTap: () {
+                        final added = provider.toggleWishlistStatus(prod);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              added ? 'Added to wishlist' : 'Removed from wishlist',
+                            ),
+                            duration: const Duration(seconds: 1),
+                          ),
+                        );
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white.withValues(alpha: 0.8),
+                        child: Icon(
+                          prod.isFavorite ? Icons.favorite : Icons.favorite_border,
+                          color: prod.isFavorite ? Colors.red : Colors.grey,
+                        ),
                       ),
                     ),
                   ),
@@ -245,7 +277,9 @@ class ProductDetailsPage extends StatelessWidget {
             const SizedBox(width: 16),
             Expanded(
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  provider.addToCart(prod);
+                },
                 icon: const Icon(Icons.shopping_cart),
                 label: const Text('Add to Cart'),
                 style: ElevatedButton.styleFrom(

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 import '../../widget/home_category_item.dart';
 import '../../widget/home_seller_item.dart';
 import '../../widget/home_product_card.dart';
+import '../../../../providers/product_provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -26,6 +29,12 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.notifications_none),
             onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.favorite),
+            onPressed: () {
+              GoRouter.of(context).push('/wishlist');
+            },
           ),
         ],
       ),
@@ -164,44 +173,21 @@ class HomePage extends StatelessWidget {
             ),
 
             // Products Grid
-            GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              childAspectRatio: 0.75,
-              children: const [
-                HomeProductCard(
-                  title: 'Premium Headpho...',
-                  category: 'Electronics',
-                  price: '\$299.99',
-                  imgIndex: '2',
-                  isSaved: true,
-                ),
-                HomeProductCard(
-                  title: 'Minimalist Watch',
-                  category: 'Fashion',
-                  price: '\$145.00',
-                  imgIndex: '1',
-                  isSaved: false,
-                  isSale: true,
-                ),
-                HomeProductCard(
-                  title: 'Vintage Camera',
-                  category: 'Electronics',
-                  price: '\$420.00',
-                  imgIndex: '3',
-                  isSaved: false,
-                ),
-                HomeProductCard(
-                  title: 'Speed Runners',
-                  category: 'Fashion',
-                  price: '\$89.00',
-                  imgIndex: '4',
-                  isSaved: true,
-                ),
-              ],
+            Consumer<ProductProvider>(
+              builder: (context, provider, _) {
+                final products = provider.products;
+                return GridView.count(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                  childAspectRatio: 0.75,
+                  children: products
+                      .map((p) => HomeProductCard(product: p))
+                      .toList(),
+                );
+              },
             ),
             const SizedBox(height: 24),
           ],

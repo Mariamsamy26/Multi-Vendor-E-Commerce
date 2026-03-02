@@ -13,10 +13,10 @@ class WishlistItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<ProductProvider>(); 
-    final bool inStock = product.inStock;
+    final provider = Provider.of<ProductProvider>(context, listen: false);
+    bool inStock = product.inStock;
 
-    return GestureDetector( 
+    return GestureDetector(
       onTap: () {
         Navigation().goToScreen(context, '/product-details', extra: product);
       },
@@ -41,7 +41,6 @@ class WishlistItem extends StatelessWidget {
               ),
               child: const Icon(Icons.image, color: Colors.grey),
             ),
-
             const SizedBox(width: 16),
 
             // Details
@@ -49,7 +48,6 @@ class WishlistItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /// Title
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -63,12 +61,9 @@ class WishlistItem extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      const Icon(Icons.more_vert,
-                          color: Colors.grey, size: 20),
+                      const Icon(Icons.more_vert, color: Colors.grey, size: 20),
                     ],
                   ),
-
-                  /// Vendor
                   Text(
                     product.vendor,
                     style: const TextStyle(
@@ -76,10 +71,7 @@ class WishlistItem extends StatelessWidget {
                       fontSize: 12,
                     ),
                   ),
-
                   const SizedBox(height: 8),
-
-                  /// Stock
                   Text(
                     inStock ? 'IN STOCK' : 'OUT OF STOCK',
                     style: TextStyle(
@@ -88,10 +80,7 @@ class WishlistItem extends StatelessWidget {
                       fontSize: 10,
                     ),
                   ),
-
                   const SizedBox(height: 4),
-
-                  /// Price
                   Row(
                     children: [
                       Text(
@@ -114,24 +103,20 @@ class WishlistItem extends StatelessWidget {
                         ),
                     ],
                   ),
-
                   const SizedBox(height: 16),
 
-                  /// Buttons
+                  // Buttons
                   Row(
                     children: [
-                      /// Remove from wishlist
                       OutlinedButton.icon(
                         onPressed: () {
-                          final removed =
-                              provider.toggleWishlistStatus(product);
-
+                          final removed = provider.toggleWishlistStatus(product);
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
                                 removed
-                                    ? 'Removed from wishlist' // ✅ fixed
-                                    : 'Added to wishlist',
+                                    ? 'Added to wishlist'
+                                    : 'Removed from wishlist',
                               ),
                               duration: const Duration(seconds: 1),
                             ),
@@ -140,25 +125,20 @@ class WishlistItem extends StatelessWidget {
                         icon: const Icon(Icons.delete_outline, size: 16),
                         label: const Text('Remove'),
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: AppColors.textSecondary,
                           padding: const EdgeInsets.symmetric(
                             horizontal: 12,
                             vertical: 8,
                           ),
+                          foregroundColor: AppColors.textSecondary,
                         ),
                       ),
-
                       const SizedBox(width: 8),
-
-                      /// Add to cart
                       Expanded(
                         child: ElevatedButton.icon(
                           onPressed: inStock
                               ? () {
                                   provider.addToCart(product);
-
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(
+                                  ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content: Text('Added to cart'),
                                       duration: Duration(seconds: 1),
@@ -168,13 +148,19 @@ class WishlistItem extends StatelessWidget {
                               : null,
                           icon: Icon(
                             inStock
-                                ? Icons.shopping_cart_outlined // ✅ better icon
+                                ? Icons.shopping_cart
                                 : Icons.notifications_none,
                             size: 16,
                           ),
                           label: Text(
                             inStock ? 'Add to Cart' : 'Notify Me',
                             style: const TextStyle(fontSize: 12),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 8,
+                            ),
                           ),
                         ),
                       ),

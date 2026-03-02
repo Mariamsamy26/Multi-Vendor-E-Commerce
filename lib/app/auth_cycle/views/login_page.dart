@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 
 class LoginPage extends StatelessWidget {
@@ -145,7 +146,7 @@ class LoginPage extends StatelessWidget {
 
               ElevatedButton(
                 onPressed: () {
-                  context.go('/home');
+                  Navigation().goToScreen(context, '/home');
                 },
                 child: const Text('Sign In →', style: TextStyle(fontSize: 16)),
               ),

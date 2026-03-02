@@ -9,6 +9,7 @@ import 'package:multi_vendor_e_commerce/app/orders_cycle/views/orders_page.dart'
 import 'package:multi_vendor_e_commerce/app/product_cycle/views/product_details_page.dart';
 import 'package:multi_vendor_e_commerce/app/profile_cycle/views/profile_page.dart';
 import 'package:multi_vendor_e_commerce/app/wishlist_cycle/views/wishlist_page.dart';
+import 'package:multi_vendor_e_commerce/app/cart_cycle/views/cart_page.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'root',
@@ -32,7 +33,17 @@ class AppRouter {
       GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
       GoRoute(
         path: '/product-details',
-        builder: (context, state) => const ProductDetailsPage(),
+        builder: (context, state) => ProductDetailsPage(
+          product: state.extra as dynamic,
+        ),
+      ),
+      GoRoute(
+        path: '/wishlist',
+        builder: (context, state) => const WishlistPage(),
+      ),
+      GoRoute(
+        path: '/cart',
+        builder: (context, state) => const CartPage(),
       ),
       GoRoute(
         path: '/categories',
@@ -74,8 +85,8 @@ class AppRouter {
             navigatorKey: _shellNavigatorWishlistKey,
             routes: [
               GoRoute(
-                path: '/wishlist',
-                builder: (context, state) => const WishlistPage(),
+                path: '/cart',
+                builder: (context, state) => const CartPage(),
               ),
             ],
           ),
