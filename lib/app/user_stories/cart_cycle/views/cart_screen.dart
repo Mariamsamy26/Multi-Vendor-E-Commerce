@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/cart_cycle/widget/cart_total.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 import 'package:provider/provider.dart';
 import '../../../../dammy/providers/product_provider.dart';
@@ -15,10 +15,7 @@ class CartScreen extends StatelessWidget {
         final items = provider.cart;
         return Scaffold(
           appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () => Navigation().goToScreen(context, '/home'),
-            ),
+          
             title: const Text('Shopping Cart',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             actions: [
@@ -32,13 +29,23 @@ class CartScreen extends StatelessWidget {
           ),
           body: items.isEmpty
               ? const Center(child: Text('Your cart is empty'))
-              : ListView.builder(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    return CartItem(product: items[index]);
-                  },
-                ),
+              : Column(
+                children: [
+                  Expanded(
+                    flex: 7,
+                    child: ListView.builder(
+                        padding: const EdgeInsets.all(16),
+                        itemCount: items.length,
+                        itemBuilder: (context, index) {
+                          return CartItem(product: items[index]);
+                        },
+                      ),
+                  ),
+                    Expanded(
+                      flex: 3,
+                      child: CartTotalBar(items: items,)),
+                ],
+              ),
         );
       },
     );

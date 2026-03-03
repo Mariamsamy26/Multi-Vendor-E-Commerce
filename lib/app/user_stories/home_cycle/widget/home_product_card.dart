@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
@@ -7,7 +7,7 @@ import 'package:multi_vendor_e_commerce/styles/colors.dart';
 import '../../../../dammy/models/product.dart';
 import '../../../../dammy/providers/product_provider.dart';
 
-class HomeProductCard extends StatelessWidget {
+class HomeProductCard extends StatefulWidget {
   final Product product;
   final bool isSale;
 
@@ -18,11 +18,17 @@ class HomeProductCard extends StatelessWidget {
   });
 
   @override
+  State<HomeProductCard> createState() => _HomeProductCardState();
+}
+
+class _HomeProductCardState extends State<HomeProductCard> {
+
+  @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ProductProvider>(context, listen: false);
     return GestureDetector(
       onTap: () {
-        Navigation().goToScreen(context, '/product-details', extra: product);
+        Navigation().goToScreen(context, '/product-details', extra: widget.product);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -44,16 +50,32 @@ class HomeProductCard extends StatelessWidget {
                         top: Radius.circular(16),
                       ),
                     ),
-                    child: product.imageUrl.isNotEmpty
-                        ? Image.network(
-                            product.imageUrl,
-                            fit: BoxFit.cover,
-                            errorBuilder: (c, o, s) => const Center(
-                              child: Icon(Icons.broken_image,
-                                  size: 50, color: Colors.grey),
-                            ),
-                          )
-                        : Center(
+                    child: widget.product.imageUrl.isNotEmpty
+                        ? ClipRRect(
+  borderRadius: BorderRadius.circular(12),
+  child: SizedBox(
+    width: double.infinity, 
+    height: double.infinity, 
+    child: CachedNetworkImage(
+      imageUrl: widget.product.imageUrl,
+      fit: BoxFit.cover,
+      placeholder: (context, url) => Container(
+        color: Colors.grey.shade100,
+        child: const Center(
+          child: SizedBox(
+            width: 30,
+            height: 30,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          ),
+        ),
+      ),
+      errorWidget: (context, url, error) => Container(
+        color: Colors.grey.shade200,
+        child: const Icon(Icons.image, color: Colors.grey),
+      ),
+    ),
+  ),
+) : Center(
                             child: Icon(Icons.image,
                                 size: 50, color: Colors.grey[400]),
                           ),
@@ -63,11 +85,12 @@ class HomeProductCard extends StatelessWidget {
                     right: 8,
                     child: GestureDetector(
                       onTap: () {
-                        final added = provider.toggleWishlistStatus(product);
+                        provider.toggleWishlistStatus(widget.product);
+                        setState(() {});
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              added ? 'Added to wishlist' : 'Removed from wishlist',
+                              widget.product.isFavorite ? 'Added to wishlist' : 'Removed from wishlist',
                             ),
                             duration: const Duration(seconds: 1),
                           ),
@@ -78,16 +101,14 @@ class HomeProductCard extends StatelessWidget {
                             Colors.white.withValues(alpha: 0.9),
                         radius: 14,
                         child: Icon(
-                          product.isFavorite
-                              ? Icons.favorite
-                              : Icons.favorite_border,
+                          widget.product.isFavorite ? Icons.favorite : Icons.favorite_border,
                           size: 16,
-                          color: product.isFavorite ? Colors.red : Colors.grey,
+                          color: widget.product.isFavorite ? Colors.red : Colors.grey,
                         ),
                       ),
                     ),
                   ),
-                  if (isSale)
+                  if (widget.isSale)
                     Positioned(
                       top: 8,
                       left: 8,
@@ -120,7 +141,7 @@ class HomeProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.category,
+                    widget.product.category,
                     style: TextStyle(
                       color: Colors.grey[500],
                       fontSize: 10,
@@ -129,7 +150,7 @@ class HomeProductCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    product.name,
+                    widget.product.name,
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
@@ -142,7 +163,7 @@ class HomeProductCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '\$${product.price.toStringAsFixed(2)}',
+                        '\$${widget.product.price.toStringAsFixed(2)}',
                         style: const TextStyle(
                           color: AppColors.primary,
                           fontWeight: FontWeight.bold,
@@ -151,7 +172,13 @@ class HomeProductCard extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          provider.addToCart(product);
+                          provider.addToCart(widget.product);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Added to cart'),
+                              duration: Duration(seconds: 1),
+                            ),
+                          );
                         },
                         child: Container(
                           padding: const EdgeInsets.all(4),

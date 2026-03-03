@@ -7,6 +7,8 @@ import 'package:multi_vendor_e_commerce/app/user_stories/orders_cycle/views/orde
 import 'package:multi_vendor_e_commerce/app/user_stories/product_cycle/views/product_details_page.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/profile_cycle/views/profile_page.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/explore_cycle/views/categories_screen.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/explore_cycle/views/category_products_screen.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/explore_cycle/views/seller_products_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/explore_cycle/views/explore_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/wishlist_cycle/views/wishlist_page.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/cart_cycle/views/cart_screen.dart';
@@ -41,13 +43,22 @@ class AppRouter {
         path: '/wishlist',
         builder: (context, state) => const WishlistScreen(),
       ),
-      GoRoute(
-        path: '/cart',
-        builder: (context, state) => const CartScreen(),
-      ),
+
       GoRoute(
         path: '/categories',
         builder: (context, state) => const CategoriesScreen(),
+      ),
+      GoRoute(
+        path: '/category',
+        builder: (context, state) => CategoryProductsScreen(
+          categoryName: state.extra as String? ?? 'Category',
+        ),
+      ),
+      GoRoute(
+        path: '/seller',
+        builder: (context, state) => SellerProductsScreen(
+          sellerName: state.extra as String? ?? 'Seller',
+        ),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
@@ -38,10 +38,17 @@ class ExploreProductListItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: product.imageUrl.isNotEmpty
-                  ? Image.network(
-                      product.imageUrl,
+                  ? CachedNetworkImage(
+                      imageUrl: product.imageUrl,
                       fit: BoxFit.cover,
-                      errorBuilder: (c, o, s) => const Center(
+                      placeholder: (context, url) => const Center(
+                        child: SizedBox(
+                          width: 25,
+                          height: 25,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => const Center(
                         child: Icon(Icons.broken_image, size: 40, color: Colors.grey),
                       ),
                     )

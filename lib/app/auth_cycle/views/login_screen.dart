@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 
@@ -148,7 +147,7 @@ class LoginScreen extends StatelessWidget {
                 onPressed: () {
                   Navigation().goToScreen(context, '/home');
                 },
-                child: const Text('Sign In →', style: TextStyle(fontSize: 16)),
+                child: const Text('Sign In', style: TextStyle(fontSize: 16)),
               ),
 
               const SizedBox(height: 32),

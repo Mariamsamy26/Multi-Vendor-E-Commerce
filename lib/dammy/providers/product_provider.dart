@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multi_vendor_e_commerce/dammy/date_dammy.dart';
+import 'package:multi_vendor_e_commerce/dammy/data/date_dammy.dart';
 import '../models/product.dart';
 
 class ProductProvider extends ChangeNotifier {

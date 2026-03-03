@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../dammy/models/product.dart';
@@ -11,6 +12,8 @@ class CartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+ final provider = Provider.of<ProductProvider>(context, listen: false);
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
@@ -22,42 +25,24 @@ class CartItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const _CartImage(),
+          CachedNetworkImage(
+            imageUrl: product.imageUrl,
+            width: 80,
+            height: 80,
+            fit: BoxFit.cover,
+            placeholder: (context, url) => const Center(
+              child: SizedBox(
+                width: 25,
+                height: 25,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              ),
+            ),
+            errorWidget: (context, url, error) => const Center(
+              child: Icon(Icons.broken_image, size: 40, color: Colors.grey),
+            ),
+          ),
           const SizedBox(width: 16),
-          Expanded(child: _CartDetails(product: product)),
-        ],
-      ),
-    );
-  }
-}
-
-class _CartImage extends StatelessWidget {
-  const _CartImage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 80,
-      height: 80,
-      decoration: BoxDecoration(
-        color: const Color(0xFFF5F5F5),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: const Icon(Icons.image, color: Colors.grey),
-    );
-  }
-}
-
-class _CartDetails extends StatelessWidget {
-  final Product product;
-
-  const _CartDetails({Key? key, required this.product}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final provider = Provider.of<ProductProvider>(context, listen: false);
-
-    return Column(
+          Expanded(child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
@@ -89,6 +74,11 @@ class _CartDetails extends StatelessWidget {
           ),
         ),
       ],
+    )),
+        ],
+      ),
     );
   }
 }
+
+

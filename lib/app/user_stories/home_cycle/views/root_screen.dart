@@ -31,8 +31,8 @@ class RootScreen extends StatelessWidget {
             label: 'Explore',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long_outlined),
-            activeIcon: Icon(Icons.receipt_long),
+            icon: Icon(Icons.shopping_bag_outlined),
+            activeIcon: Icon(Icons.shopping_bag),
             label: 'Orders',
           ),
           BottomNavigationBarItem(

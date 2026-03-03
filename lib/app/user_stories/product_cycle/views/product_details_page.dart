@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 import '../widget/product_spec_chip.dart';
@@ -39,10 +40,17 @@ class ProductDetailsScreen extends StatelessWidget {
                 children: [
                   if (prod.imageUrl.isNotEmpty)
                     Positioned.fill(
-                      child: Image.network(
-                        prod.imageUrl,
+                      child: CachedNetworkImage(
+                        imageUrl: prod.imageUrl,
                         fit: BoxFit.cover,
-                        errorBuilder: (c, o, s) => const Center(
+                        placeholder: (context, url) => const Center(
+                          child: SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => const Center(
                           child: Icon(Icons.broken_image, size: 80, color: Colors.grey),
                         ),
                       ),

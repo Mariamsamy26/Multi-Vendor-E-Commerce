@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:multi_vendor_e_commerce/dammy/data/orderes_list.dart';
+import 'package:multi_vendor_e_commerce/dammy/models/order.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 import '../widget/order_list_item.dart';
 
@@ -7,6 +9,19 @@ class OrdersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final allOrders = DummyOrders.orders;
+
+final ongoing = allOrders
+    .where((o) => o.status == OrderStatus.shipped)
+    .toList();
+
+final completed = allOrders
+    .where((o) => o.status == OrderStatus.delivered)
+    .toList();
+
+final cancelled = <OrderModel>[]; // مؤقت
+
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -50,29 +65,36 @@ class OrdersScreen extends StatelessWidget {
               ),
             ),
 
-            Expanded(
-              child: TabBarView(
-                children: [
-                  _buildOrdersList(), // All
-                  _buildOrdersList(), // Ongoing
-                  _buildOrdersList(), // Completed
-                  _buildOrdersList(), // Cancelled
-                ],
-              ),
-            ),
+           Expanded(
+  child: TabBarView(
+    children: [
+      _buildOrdersList(allOrders),
+      _buildOrdersList(ongoing),
+      _buildOrdersList(completed),
+      _buildOrdersList(cancelled),
+    ],
+  ),
+),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildOrdersList() {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      itemCount: 3,
-      itemBuilder: (context, index) {
-        return OrderListItem(index: index);
-      },
+Widget _buildOrdersList(List<OrderModel> orders) {
+  if (orders.isEmpty) {
+    return const Center(
+      child: Text('No orders found'),
     );
   }
+
+  return ListView.builder(
+    padding: const EdgeInsets.symmetric(horizontal: 16),
+    itemCount: orders.length,
+    itemBuilder: (context, index) {
+      return OrderListItem(order: orders[index]);
+    },
+  );
+}
+
 }
