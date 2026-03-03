@@ -69,4 +69,14 @@ class ProductProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  /// Clear everything in the shopping cart.
+  ///
+  /// This is a convenience helper used when an order is placed so the cart
+  /// becomes empty again. It will call [notifyListeners] so any consumers can
+  /// rebuild with the updated state.
+  void clearCart() {
+    _cart.clear();
+    notifyListeners();
+  }
 }

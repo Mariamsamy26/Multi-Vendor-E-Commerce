@@ -1,7 +1,6 @@
 import 'package:multi_vendor_e_commerce/dammy/data/date_dammy.dart';
 
 import '../models/order.dart';
-import '../models/product.dart';
 
 class DummyOrders {
   DummyOrders._();

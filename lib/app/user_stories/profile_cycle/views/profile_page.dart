@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
+import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widget/profile_info_row.dart';
 import '../widget/profile_address_card.dart';
 
@@ -24,26 +26,32 @@ class ProfileScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
             // Avatar and Name
-            const Center(
-              child: Stack(
-                children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Color(0xFFE5E7EB),
-                    child: Icon(Icons.person, size: 60, color: Colors.grey),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: CircleAvatar(
-                      radius: 16,
-                      backgroundColor: AppColors.primary,
-                      child: Icon(Icons.edit, color: Colors.white, size: 16),
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  Navigation()
+                      .goToScreen(context, '/edit-profile');
+                },
+                child: Stack(
+                  children: [
+                    const CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Color(0xFFE5E7EB),
+                      child: Icon(Icons.person, size: 60, color: Colors.grey),
                     ),
-                  ),
-                ],
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: CircleAvatar(
+                        radius: 16,
+                        backgroundColor: AppColors.primary,
+                        child: const Icon(Icons.edit, color: Colors.white, size: 16),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 16),
@@ -60,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
 
             // Personal Information
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              padding: EdgeInsets.symmetric(horizontal: 24.0.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -76,7 +84,10 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigation()
+                              .goToScreen(context, '/edit-profile');
+                        },
                         child: const Text(
                           'Edit',
                           style: TextStyle(color: AppColors.primary),
@@ -103,7 +114,7 @@ class ProfileScreen extends StatelessWidget {
                     value: 'March 15, 1992',
                   ),
 
-                  const SizedBox(height: 32),
+                  SizedBox(height: 32.h),
 
                   // Saved Addresses
                   Row(
@@ -124,7 +135,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+SizedBox(height: 8.h),
 
                   const ProfileAddressCard(
                     type: 'Home',

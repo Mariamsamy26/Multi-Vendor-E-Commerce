@@ -6,12 +6,14 @@ import 'package:multi_vendor_e_commerce/app/user_stories/home_cycle/views/root_s
 import 'package:multi_vendor_e_commerce/app/user_stories/orders_cycle/views/orders_page.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/product_cycle/views/product_details_page.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/profile_cycle/views/profile_page.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/profile_cycle/views/edit_profile_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/explore_cycle/views/categories_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/explore_cycle/views/category_products_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/explore_cycle/views/seller_products_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/explore_cycle/views/explore_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/wishlist_cycle/views/wishlist_page.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/cart_cycle/views/cart_screen.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/cart_cycle/views/checkout_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'root',
@@ -47,6 +49,14 @@ class AppRouter {
       GoRoute(
         path: '/categories',
         builder: (context, state) => const CategoriesScreen(),
+      ),
+      GoRoute(
+        path: '/checkout',
+        builder: (context, state) => const CheckoutScreen(),
+      ),
+      GoRoute(
+        path: '/edit-profile',
+        builder: (context, state) => const EditProfileScreen(),
       ),
       GoRoute(
         path: '/category',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'services/app_router.dart';
 import 'styles/text_style.dart';
@@ -19,11 +20,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Multi-Vendor E-Commerce',
-      theme: AppTheme.lightTheme,
-      routerConfig: AppRouter.router,
-      debugShowCheckedModeBanner: false,
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      builder: (context, child) {
+        return MaterialApp.router(
+          title: 'Multi-Vendor E-Commerce',
+          theme: AppTheme.lightTheme,
+          routerConfig: AppRouter.router,
+          debugShowCheckedModeBanner: false,
+        );
+      },
     );
   }
 }
