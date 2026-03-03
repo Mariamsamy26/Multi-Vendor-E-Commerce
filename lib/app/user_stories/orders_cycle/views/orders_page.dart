@@ -20,7 +20,9 @@ final completed = allOrders
     .where((o) => o.status == OrderStatus.delivered)
     .toList();
 
-final cancelled = <OrderModel>[]; // مؤقت
+final cancelled = allOrders
+    .where((o) => o.status == OrderStatus.cancelled)
+    .toList();
 
     return DefaultTabController(
       length: 4,
@@ -39,7 +41,7 @@ final cancelled = <OrderModel>[]; // مؤقت
               Tab(text: 'All Orders'),
               Tab(text: 'Ongoing'),
               Tab(text: 'Completed'),
-              Tab(text: 'Cancelled'),
+              Tab(text: 'cancelled'),
             ],
           ),
         ),

@@ -76,23 +76,39 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 16),
-            // Search Bar
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Search products, brands...',
-                prefixIcon: const Icon(
-                  Icons.search,
-                  color: AppColors.textSecondary,
-                ),
-                filled: true,
-                fillColor: Colors.grey[100],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none,
-                ),
-                contentPadding: const EdgeInsets.symmetric(vertical: 12),
-              ),
+               // Popular Sellers Header
+            const Text(
+              'Popular Sellers',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
+            const SizedBox(height: 16),
+
+            // Sellers List
+            SizedBox(
+  height: 100,
+  child: ListView.builder(
+    scrollDirection: Axis.horizontal,
+    itemCount: SellersList.sellers.length,
+    itemBuilder: (context, index) {
+      final seller = SellersList.sellers[index];
+
+      return GestureDetector(
+        onTap: () => GoRouter.of(context).push(
+          '/seller',
+          extra: seller.name,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(right: 12),
+          child: HomeSellerItem(
+            name: seller.name,
+            imageIndex: seller.imageIndex,
+            color: seller.color,
+          ),
+        ),
+      );
+    },
+  ),
+),
             const SizedBox(height: 24),
 
             // Categories Header
@@ -136,41 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
 ),
             const SizedBox(height: 24),
 
-            // Popular Sellers Header
-            const Text(
-              'Popular Sellers',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-
-            // Sellers List
-            SizedBox(
-  height: 100,
-  child: ListView.builder(
-    scrollDirection: Axis.horizontal,
-    itemCount: SellersList.sellers.length,
-    itemBuilder: (context, index) {
-      final seller = SellersList.sellers[index];
-
-      return GestureDetector(
-        onTap: () => GoRouter.of(context).push(
-          '/seller',
-          extra: seller.name,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(right: 12),
-          child: HomeSellerItem(
-            name: seller.name,
-            imageIndex: seller.imageIndex,
-            color: seller.color,
-          ),
-        ),
-      );
-    },
-  ),
-),
-            const SizedBox(height: 24),
-
+       
             // Featured Products Header
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

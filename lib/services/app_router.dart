@@ -4,6 +4,8 @@ import 'package:multi_vendor_e_commerce/app/auth_cycle/views/login_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/home_cycle/views/home_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/home_cycle/views/root_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/orders_cycle/views/orders_page.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/orders_cycle/views/order_details_screen.dart';
+import 'package:multi_vendor_e_commerce/dammy/models/order.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/product_cycle/views/product_details_page.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/profile_cycle/views/profile_page.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/profile_cycle/views/edit_profile_screen.dart';
@@ -68,6 +70,12 @@ class AppRouter {
         path: '/seller',
         builder: (context, state) => SellerProductsScreen(
           sellerName: state.extra as String? ?? 'Seller',
+        ),
+      ),
+      GoRoute(
+        path: '/order-details',
+        builder: (context, state) => OrderDetailsScreen(
+          order: state.extra as OrderModel,
         ),
       ),
       StatefulShellRoute.indexedStack(

@@ -1,6 +1,6 @@
 import 'product.dart';
 
-enum OrderStatus { shipped, delivered }
+enum OrderStatus { shipped, delivered, cancelled, processing }
 
 class OrderModel {
   final String id;

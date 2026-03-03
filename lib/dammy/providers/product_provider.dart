@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor_e_commerce/dammy/data/date_dammy.dart';
 import '../models/product.dart';
+import '../models/order.dart';
 
 class ProductProvider extends ChangeNotifier {
   final List<Product> _products = [];
@@ -77,6 +78,15 @@ class ProductProvider extends ChangeNotifier {
   /// rebuild with the updated state.
   void clearCart() {
     _cart.clear();
+    notifyListeners();
+  }
+
+  /// Convenience helper to re‑order a previous order. The current cart is
+  /// cleared and all items from [order] are added back in. Does not modify
+  /// the order list itself (that responsibility lives elsewhere).
+  void reorder(OrderModel order) {
+    _cart.clear();
+    _cart.addAll(order.products);
     notifyListeners();
   }
 }
