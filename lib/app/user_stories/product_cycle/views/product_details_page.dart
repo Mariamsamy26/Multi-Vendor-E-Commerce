@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 import '../widget/product_spec_chip.dart';
@@ -19,9 +20,9 @@ class ProductDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(),
-        title: const Text(
+        title: Text(
           'Product Details',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
         actions: [
           IconButton(icon: const Icon(Icons.share_outlined), onPressed: () {}),
@@ -33,7 +34,7 @@ class ProductDetailsScreen extends StatelessWidget {
           children: [
             // Product Image Header
             Container(
-              height: 300,
+              height: 300.h,
               width: double.infinity,
               color: Colors.grey[100],
               child: Stack(
@@ -43,23 +44,27 @@ class ProductDetailsScreen extends StatelessWidget {
                       child: CachedNetworkImage(
                         imageUrl: prod.imageUrl,
                         fit: BoxFit.cover,
-                        placeholder: (context, url) => const Center(
+                        placeholder: (context, url) => Center(
                           child: SizedBox(
-                            width: 40,
-                            height: 40,
+                            width: 40.w,
+                            height: 40.h,
                             child: CircularProgressIndicator(strokeWidth: 2),
                           ),
                         ),
-                        errorWidget: (context, url, error) => const Center(
-                          child: Icon(Icons.broken_image, size: 80, color: Colors.grey),
+                        errorWidget: (context, url, error) => Center(
+                          child: Icon(
+                            Icons.broken_image,
+                            size: 80.sp,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
                     )
                   else
-                    const Center(
+                    Center(
                       child: Icon(
                         Icons.image,
-                        size: 100,
+                        size: 100.sp,
                         color: Colors.black38,
                       ),
                     ),
@@ -72,7 +77,9 @@ class ProductDetailsScreen extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              added ? 'Added to wishlist' : 'Removed from wishlist',
+                              added
+                                  ? 'Added to wishlist'
+                                  : 'Removed from wishlist',
                             ),
                             duration: const Duration(seconds: 1),
                           ),
@@ -81,7 +88,9 @@ class ProductDetailsScreen extends StatelessWidget {
                       child: CircleAvatar(
                         backgroundColor: Colors.white.withValues(alpha: 0.8),
                         child: Icon(
-                          prod.isFavorite ? Icons.favorite : Icons.favorite_border,
+                          prod.isFavorite
+                              ? Icons.favorite
+                              : Icons.favorite_border,
                           color: prod.isFavorite ? Colors.red : Colors.grey,
                         ),
                       ),
@@ -99,47 +108,47 @@ class ProductDetailsScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'PREMIUM AUDIO',
                         style: TextStyle(
                           color: AppColors.primary,
-                          fontSize: 10,
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Row(
                         children: [
                           const Icon(Icons.star, color: Colors.amber, size: 16),
-                          const Text(
+                          Text(
                             ' 4.9',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 12,
+                              fontSize: 12.sp,
                             ),
                           ),
                           Text(
                             ' (12K reviews)',
                             style: TextStyle(
                               color: Colors.grey[500],
-                              fontSize: 12,
+                              fontSize: 12.sp,
                             ),
                           ),
                         ],
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
-                  const Text(
+                  SizedBox(height: 8.h),
+                  Text(
                     'Vision Pro Headphones',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   Row(
                     children: [
-                      const Text(
+                      Text(
                         '\$299.99',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                           color: AppColors.primary,
                         ),
@@ -148,7 +157,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       Text(
                         '\$349.00',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           decoration: TextDecoration.lineThrough,
                           color: Colors.grey[400],
                         ),
@@ -156,18 +165,18 @@ class ProductDetailsScreen extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 24),
-                  const Text(
+                  SizedBox(height: 24.h),
+                  Text(
                     'Description',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   Text(
                     'Experience audio like never before with the Vision Pro. Featuring industry-leading noise cancellation, spatial audio, and up to 40 hours of battery life. Crafted from premium materials for ultimate comfort during long listening sessions.',
                     style: TextStyle(color: Colors.grey[600], height: 1.5),
                   ),
 
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24.h),
                   const Row(
                     children: [
                       Expanded(
@@ -186,14 +195,14 @@ class ProductDetailsScreen extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 32),
+                  SizedBox(height: 32.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Reviews',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -216,26 +225,26 @@ class ProductDetailsScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            const CircleAvatar(
-                              radius: 12,
-                              child: Icon(Icons.person, size: 16),
+                            CircleAvatar(
+                              radius: 12.r,
+                              child: Icon(Icons.person, size: 16.sp),
                             ),
                             const SizedBox(width: 8),
-                            const Text(
+                            Text(
                               'James Smith',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 12,
+                                fontSize: 12.sp,
                               ),
                             ),
                             const Spacer(),
                             Row(
                               children: List.generate(
                                 5,
-                                (_) => const Icon(
+                                (_) => Icon(
                                   Icons.star,
                                   color: Colors.amber,
-                                  size: 12,
+                                  size: 12.sp,
                                 ),
                               ),
                             ),
@@ -245,7 +254,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         Text(
                           'The sound quality on these is incredible. Best noise cancellation I\'ve ever experienced.',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 12.sp,
                             color: Colors.grey[600],
                           ),
                         ),

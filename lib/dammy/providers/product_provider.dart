@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:multi_vendor_e_commerce/dammy/data/date_dammy.dart';
 import '../models/product.dart';
 import '../models/order.dart';
+import '../../services/shared_prefs_service.dart';
 
 class ProductProvider extends ChangeNotifier {
   final List<Product> _products = [];
-
   final List<Product> _cart = [];
+  final SharedPrefsService _prefsService = SharedPrefsService();
 
   ProductProvider() {
     _products.addAll(DummyData.products);
+    _loadCart();
+  }
+
+  Future<void> _loadCart() async {
+    final savedCart = await _prefsService.loadCart();
+    _cart.addAll(savedCart);
+    notifyListeners();
   }
 
   List<Product> get products => List.unmodifiable(_products);
@@ -54,12 +62,14 @@ class ProductProvider extends ChangeNotifier {
   /// Add [product] to the cart. Duplicates are allowed.
   void addToCart(Product product) {
     _cart.add(product);
+    _saveCart();
     notifyListeners();
   }
 
   /// Remove a single instance of [product] from the cart if it exists.
   void removeFromCart(Product product) {
     _cart.remove(product);
+    _saveCart();
     notifyListeners();
   }
 
@@ -78,6 +88,7 @@ class ProductProvider extends ChangeNotifier {
   /// rebuild with the updated state.
   void clearCart() {
     _cart.clear();
+    _saveCart();
     notifyListeners();
   }
 
@@ -87,6 +98,11 @@ class ProductProvider extends ChangeNotifier {
   void reorder(OrderModel order) {
     _cart.clear();
     _cart.addAll(order.products);
+    _saveCart();
     notifyListeners();
+  }
+
+  Future<void> _saveCart() async {
+    await _prefsService.saveCart(_cart);
   }
 }

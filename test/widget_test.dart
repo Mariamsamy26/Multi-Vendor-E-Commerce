@@ -17,7 +17,7 @@ void main() {
     await tester.pumpWidget(
       ScreenUtilInit(
         designSize: const Size(360, 690),
-        builder: (_, __) => const MyApp(),
+        builder: (_, _) => const MyApp(),
       ),
     );
 

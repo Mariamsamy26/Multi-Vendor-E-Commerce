@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor_e_commerce/dammy/models/order.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
@@ -14,44 +15,41 @@ class OrderListItem extends StatelessWidget {
     final isDelivered = order.status == OrderStatus.delivered;
 
     return InkWell(
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(20.r),
       onTap: () {
-        Navigation().goToScreen(
-          context,
-          '/order-details',
-          extra: order,
-        );
+        Navigation().goToScreen(context, '/order-details', extra: order);
       },
       child: Container(
-        margin: const EdgeInsets.only(bottom: 16),
-        padding: const EdgeInsets.all(14),
+        margin: EdgeInsets.only(bottom: 16.h),
+        padding: EdgeInsets.all(14.w),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20.r),
 
           /// 🔥 modern shadow
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
               color: Colors.black12,
-              blurRadius: 10,
-              offset: Offset(0, 4),
+              blurRadius: 10.r,
+              offset: Offset(0, 4.h),
             ),
           ],
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// ================= Product Image =================
             ClipRRect(
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(14.r),
               child: Image.network(
                 product.imageUrl,
-                width: 70,
-                height: 70,
+                width: 60.w,
+                height: 65.h,
                 fit: BoxFit.cover,
               ),
             ),
 
-            const SizedBox(width: 14),
+            SizedBox(width: 14.w),
 
             /// ================= Info =================
             Expanded(
@@ -60,55 +58,51 @@ class OrderListItem extends StatelessWidget {
                 children: [
                   /// top row (id + badge)
                   Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'Order #${order.id}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 14,
+                          fontSize: 14.sp,
                         ),
                       ),
                       _statusBadge(order.status),
                     ],
                   ),
 
-                  const SizedBox(height: 6),
+                  SizedBox(height: 6.h),
 
                   /// name
                   Text(
                     product.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.w600,
+                      fontSize: 14.sp,
                     ),
                   ),
 
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h),
 
                   /// meta row
                   Text(
                     '${order.products.length} items • '
                     '${order.date.day}/${order.date.month}/${order.date.year}',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
-                    ),
+                    style: TextStyle(fontSize: 12.sp, color: Colors.grey),
                   ),
 
-                  const SizedBox(height: 6),
+                  SizedBox(height: 6.h),
 
                   /// price + rate button
                   Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         '\$${order.total.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontSize: 15,
+                        style: TextStyle(
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.bold,
                           color: AppColors.primary,
                         ),
@@ -116,7 +110,7 @@ class OrderListItem extends StatelessWidget {
 
                       if (isDelivered)
                         SizedBox(
-                          height: 32,
+                          height: 32.h,
                           child: ElevatedButton.icon(
                             onPressed: () {
                               Navigation().goToScreen(
@@ -125,25 +119,16 @@ class OrderListItem extends StatelessWidget {
                                 extra: order,
                               );
                             },
-                            icon: const Icon(Icons.star,
-                                size: 16),
-                            label: const Text(
+                            icon: Icon(Icons.star, size: 16.w),
+                            label: Text(
                               "Rate",
-                              style:
-                                  TextStyle(fontSize: 12),
+                              style: TextStyle(fontSize: 12.sp),
                             ),
-                            style:
-                                ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  AppColors.primary,
-                              padding:
-                                  const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                              shape:
-                                  RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(
-                                        10),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primary,
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.r),
                               ),
                             ),
                           ),
@@ -153,12 +138,6 @@ class OrderListItem extends StatelessWidget {
                 ],
               ),
             ),
-
-            const SizedBox(width: 6),
-
-            /// arrow
-            const Icon(Icons.chevron_right,
-                color: Colors.grey),
           ],
         ),
       ),
@@ -200,20 +179,19 @@ class OrderListItem extends StatelessWidget {
     }
 
     return Container(
-      padding:
-          const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
       decoration: BoxDecoration(
-        color: color.withOpacity(.12),
-        borderRadius: BorderRadius.circular(8),
+        color: color.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(8.r),
       ),
       child: Row(
         children: [
-          Icon(icon, size: 13, color: color),
-          const SizedBox(width: 4),
+          Icon(icon, size: 13.w, color: color),
+          SizedBox(width: 4.w),
           Text(
             text,
             style: TextStyle(
-              fontSize: 11,
+              fontSize: 11.sp,
               fontWeight: FontWeight.bold,
               color: color,
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeSellerItem extends StatelessWidget {
   final String name;
@@ -15,16 +16,16 @@ class HomeSellerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 16.0),
+      padding: EdgeInsets.only(right: 16.0.w),
       child: Column(
         children: [
           CircleAvatar(
-            radius: 30,
+            radius: 30.r,
             backgroundColor: color,
-            child: const Icon(Icons.person, color: Colors.white, size: 30),
+            child: Icon(Icons.person, color: Colors.white, size: 30.w),
           ),
-          const SizedBox(height: 8),
-          Text(name, style: const TextStyle(fontSize: 12)),
+          SizedBox(height: 8.h),
+          Text(name, style: TextStyle(fontSize: 12.sp)),
         ],
       ),
     );

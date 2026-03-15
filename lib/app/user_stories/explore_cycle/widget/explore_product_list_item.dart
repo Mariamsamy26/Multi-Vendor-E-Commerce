@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 import 'package:provider/provider.dart';
@@ -20,43 +21,49 @@ class ExploreProductListItem extends StatelessWidget {
         Navigation().goToScreen(context, '/product-details', extra: product);
       },
       child: Container(
-        margin: const EdgeInsets.only(bottom: 16),
-        padding: const EdgeInsets.all(12),
+        margin: EdgeInsets.only(bottom: 16.h),
+        padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
           border: Border.all(color: Colors.grey[200]!),
         ),
         child: Row(
           children: [
             // Product Image
             Container(
-              width: 100,
-              height: 100,
+              width: 100.w,
+              height: 100.h,
               decoration: BoxDecoration(
                 color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(12.r),
               ),
               child: product.imageUrl.isNotEmpty
                   ? CachedNetworkImage(
                       imageUrl: product.imageUrl,
                       fit: BoxFit.cover,
-                      placeholder: (context, url) => const Center(
+                      placeholder: (context, url) => Center(
                         child: SizedBox(
-                          width: 25,
-                          height: 25,
-                          child: CircularProgressIndicator(strokeWidth: 2),
+                          width: 25.w,
+                          height: 25.h,
+                          child: const CircularProgressIndicator(
+                            strokeWidth: 2,
+                          ),
                         ),
                       ),
-                      errorWidget: (context, url, error) => const Center(
-                        child: Icon(Icons.broken_image, size: 40, color: Colors.grey),
+                      errorWidget: (context, url, error) => Center(
+                        child: Icon(
+                          Icons.broken_image,
+                          size: 40.w,
+                          color: Colors.grey,
+                        ),
                       ),
                     )
-                  : const Center(
-                      child: Icon(Icons.image, size: 40, color: Colors.grey),
+                  : Center(
+                      child: Icon(Icons.image, size: 40.w, color: Colors.grey),
                     ),
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: 16.w),
 
             // Product Details
             Expanded(
@@ -68,8 +75,8 @@ class ExploreProductListItem extends StatelessWidget {
                     children: [
                       Text(
                         product.category,
-                        style: const TextStyle(
-                          fontSize: 10,
+                        style: TextStyle(
+                          fontSize: 10.sp,
                           color: Colors.grey,
                           fontWeight: FontWeight.bold,
                         ),
@@ -80,57 +87,64 @@ class ExploreProductListItem extends StatelessWidget {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                added ? 'Added to wishlist' : 'Removed from wishlist',
+                                added
+                                    ? 'Added to wishlist'
+                                    : 'Removed from wishlist',
                               ),
                               duration: const Duration(seconds: 1),
                             ),
                           );
                         },
                         child: Icon(
-                          product.isFavorite ? Icons.favorite : Icons.favorite_border,
-                          size: 18,
+                          product.isFavorite
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          size: 18.w,
                           color: product.isFavorite ? Colors.red : Colors.grey,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h),
                   Text(
                     product.name,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.sp,
+                    ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h),
                   Row(
                     children: [
-                      const Icon(Icons.star, color: Colors.amber, size: 14),
-                      const Text(
+                      Icon(Icons.star, color: Colors.amber, size: 14.w),
+                      Text(
                         ' 4.8 ',
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
                         '(12k)',
                         style: TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFF9E9E9E),
+                          fontSize: 12.sp,
+                          color: const Color(0xFF9E9E9E),
                         ), // Colors.grey[500]
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         '\$${product.price.toStringAsFixed(2)}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primary,
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                          fontSize: 16.sp,
                         ),
                       ),
                       GestureDetector(
@@ -138,14 +152,14 @@ class ExploreProductListItem extends StatelessWidget {
                           provider.addToCart(product);
                         },
                         child: Container(
-                          padding: const EdgeInsets.all(6),
+                          padding: EdgeInsets.all(6.w),
                           decoration: BoxDecoration(
-                            color: Color(0xFFF5F5F5), // Colors.grey[100]
-                            borderRadius: BorderRadius.circular(8),
+                            color: const Color(0xFFF5F5F5), // Colors.grey[100]
+                            borderRadius: BorderRadius.circular(8.r),
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.add_shopping_cart,
-                            size: 16,
+                            size: 16.w,
                             color: AppColors.primary,
                           ),
                         ),

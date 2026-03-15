@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:multi_vendor_e_commerce/app/auth_cycle/views/login_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/home_cycle/views/home_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/home_cycle/views/root_screen.dart';
-import 'package:multi_vendor_e_commerce/app/user_stories/orders_cycle/views/orders_page.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/orders_cycle/views/orders_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/orders_cycle/views/order_details_screen.dart';
 import 'package:multi_vendor_e_commerce/dammy/models/order.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/product_cycle/views/product_details_page.dart';
@@ -39,9 +39,8 @@ class AppRouter {
       GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
       GoRoute(
         path: '/product-details',
-        builder: (context, state) => ProductDetailsScreen(
-          product: state.extra as dynamic,
-        ),
+        builder: (context, state) =>
+            ProductDetailsScreen(product: state.extra as dynamic),
       ),
       GoRoute(
         path: '/wishlist',
@@ -74,9 +73,8 @@ class AppRouter {
       ),
       GoRoute(
         path: '/order-details',
-        builder: (context, state) => OrderDetailsScreen(
-          order: state.extra as OrderModel,
-        ),
+        builder: (context, state) =>
+            OrderDetailsScreen(order: state.extra as OrderModel),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

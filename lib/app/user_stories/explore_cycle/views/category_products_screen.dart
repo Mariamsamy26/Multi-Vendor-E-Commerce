@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -9,10 +10,7 @@ import '../../home_cycle/widget/home_product_card.dart';
 class CategoryProductsScreen extends StatefulWidget {
   final String categoryName;
 
-  const CategoryProductsScreen({
-    super.key,
-    required this.categoryName,
-  });
+  const CategoryProductsScreen({super.key, required this.categoryName});
 
   @override
   State<CategoryProductsScreen> createState() => _CategoryProductsScreenState();
@@ -28,16 +26,15 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
   void _precacheCategoryImages() {
     final provider = Provider.of<ProductProvider>(context, listen: false);
     final categoryProducts = provider.products
-        .where((product) =>
-            product.category.toLowerCase() ==
-            widget.categoryName.toLowerCase())
+        .where(
+          (product) =>
+              product.category.toLowerCase() ==
+              widget.categoryName.toLowerCase(),
+        )
         .toList();
     for (var prod in categoryProducts) {
       if (prod.imageUrl.isNotEmpty) {
-        precacheImage(
-          CachedNetworkImageProvider(prod.imageUrl),
-          context,
-        );
+        precacheImage(CachedNetworkImageProvider(prod.imageUrl), context);
       }
     }
   }
@@ -50,7 +47,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
         leading: const BackButton(),
         title: Text(
           categoryName,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
         actions: [
           IconButton(
@@ -74,9 +71,11 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
         builder: (context, provider, _) {
           // Filter products by category
           final categoryProducts = provider.products
-              .where((product) =>
-                  product.category.toLowerCase() ==
-                  categoryName.toLowerCase())
+              .where(
+                (product) =>
+                    product.category.toLowerCase() ==
+                    categoryName.toLowerCase(),
+              )
               .toList();
 
           if (categoryProducts.isEmpty) {
@@ -86,25 +85,22 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                 children: [
                   Icon(
                     Icons.shopping_bag_outlined,
-                    size: 80,
+                    size: 80.w,
                     color: Colors.grey[400],
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   Text(
                     'No products found',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.grey[600],
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   Text(
                     'in $categoryName',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[500],
-                    ),
+                    style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
                   ),
                 ],
               ),
@@ -112,7 +108,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
           }
 
           return SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -127,43 +123,41 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                     filled: true,
                     fillColor: Colors.grey[100],
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                       borderSide: BorderSide.none,
                     ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 12),
+                    contentPadding: EdgeInsets.symmetric(vertical: 12.h),
                   ),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24.h),
 
                 // Product Count
                 Text(
                   '${categoryProducts.length} Products',
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: 14.sp,
                     color: AppColors.textSecondary,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
 
                 // Products Grid
                 GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: categoryProducts.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16.h,
+                    crossAxisSpacing: 16.w,
                     childAspectRatio: 0.75,
                   ),
                   itemBuilder: (context, index) {
-                    return HomeProductCard(
-                      product: categoryProducts[index],
-                    );
+                    return HomeProductCard(product: categoryProducts[index]);
                   },
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24.h),
               ],
             ),
           );

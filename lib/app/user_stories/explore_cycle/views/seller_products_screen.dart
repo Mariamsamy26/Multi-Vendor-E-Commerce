@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -9,10 +10,7 @@ import '../../home_cycle/widget/home_product_card.dart';
 class SellerProductsScreen extends StatefulWidget {
   final String sellerName;
 
-  const SellerProductsScreen({
-    super.key,
-    required this.sellerName,
-  });
+  const SellerProductsScreen({super.key, required this.sellerName});
 
   @override
   State<SellerProductsScreen> createState() => _SellerProductsScreenState();
@@ -28,15 +26,14 @@ class _SellerProductsScreenState extends State<SellerProductsScreen> {
   void _precacheSellerImages() {
     final provider = Provider.of<ProductProvider>(context, listen: false);
     final sellerProducts = provider.products
-        .where((product) =>
-            product.vendor.toLowerCase() == widget.sellerName.toLowerCase())
+        .where(
+          (product) =>
+              product.vendor.toLowerCase() == widget.sellerName.toLowerCase(),
+        )
         .toList();
     for (var prod in sellerProducts) {
       if (prod.imageUrl.isNotEmpty) {
-        precacheImage(
-          CachedNetworkImageProvider(prod.imageUrl),
-          context,
-        );
+        precacheImage(CachedNetworkImageProvider(prod.imageUrl), context);
       }
     }
   }
@@ -49,7 +46,7 @@ class _SellerProductsScreenState extends State<SellerProductsScreen> {
         leading: const BackButton(),
         title: Text(
           sellerName,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
         actions: [
           IconButton(
@@ -73,8 +70,10 @@ class _SellerProductsScreenState extends State<SellerProductsScreen> {
         builder: (context, provider, _) {
           // Filter products by vendor/seller
           final sellerProducts = provider.products
-              .where((product) =>
-                  product.vendor.toLowerCase() == sellerName.toLowerCase())
+              .where(
+                (product) =>
+                    product.vendor.toLowerCase() == sellerName.toLowerCase(),
+              )
               .toList();
 
           if (sellerProducts.isEmpty) {
@@ -84,25 +83,22 @@ class _SellerProductsScreenState extends State<SellerProductsScreen> {
                 children: [
                   Icon(
                     Icons.store_outlined,
-                    size: 80,
+                    size: 80.w,
                     color: Colors.grey[400],
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   Text(
                     'No products available',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.grey[600],
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   Text(
                     'from $sellerName',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[500],
-                    ),
+                    style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
                   ),
                 ],
               ),
@@ -110,20 +106,23 @@ class _SellerProductsScreenState extends State<SellerProductsScreen> {
           }
 
           return SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Seller Header Card
                 Container(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.all(16.w),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [AppColors.primary.withValues(alpha: 0.1), Colors.white],
+                      colors: [
+                        AppColors.primary.withValues(alpha: 0.1),
+                        Colors.white,
+                      ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(16.r),
                     border: Border.all(
                       color: AppColors.primary.withValues(alpha: 0.2),
                     ),
@@ -131,57 +130,59 @@ class _SellerProductsScreenState extends State<SellerProductsScreen> {
                   child: Row(
                     children: [
                       CircleAvatar(
-                        radius: 40,
-                        backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+                        radius: 40.r,
+                        backgroundColor: AppColors.primary.withValues(
+                          alpha: 0.1,
+                        ),
                         child: Icon(
                           Icons.store,
-                          size: 40,
+                          size: 40.w,
                           color: AppColors.primary,
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      SizedBox(width: 16.w),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               sellerName,
-                              style: const TextStyle(
-                                fontSize: 18,
+                              style: TextStyle(
+                                fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(height: 4),
+                            SizedBox(height: 4.h),
                             Text(
                               '${sellerProducts.length} Products',
                               style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 14.sp,
                                 color: Colors.grey[600],
                               ),
                             ),
-                            const SizedBox(height: 8),
+                            SizedBox(height: 8.h),
                             Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 4,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8.w,
+                                vertical: 4.h,
                               ),
                               decoration: BoxDecoration(
                                 color: Colors.green.withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(4),
+                                borderRadius: BorderRadius.circular(4.r),
                               ),
-                              child: const Row(
+                              child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Icon(
                                     Icons.verified,
-                                    size: 14,
+                                    size: 14.w,
                                     color: Colors.green,
                                   ),
-                                  SizedBox(width: 4),
+                                  SizedBox(width: 4.w),
                                   Text(
                                     'Verified Seller',
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 12.sp,
                                       color: Colors.green,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -195,7 +196,7 @@ class _SellerProductsScreenState extends State<SellerProductsScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24.h),
 
                 // Search Bar
                 TextField(
@@ -208,32 +209,30 @@ class _SellerProductsScreenState extends State<SellerProductsScreen> {
                     filled: true,
                     fillColor: Colors.grey[100],
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                       borderSide: BorderSide.none,
                     ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 12),
+                    contentPadding: EdgeInsets.symmetric(vertical: 12.h),
                   ),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24.h),
 
                 // Products Grid
                 GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: sellerProducts.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16.h,
+                    crossAxisSpacing: 16.w,
                     childAspectRatio: 0.75,
                   ),
                   itemBuilder: (context, index) {
-                    return HomeProductCard(
-                      product: sellerProducts[index],
-                    );
+                    return HomeProductCard(product: sellerProducts[index]);
                   },
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24.h),
               ],
             ),
           );

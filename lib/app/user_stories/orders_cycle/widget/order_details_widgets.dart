@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../../../dammy/models/order.dart';
 import '../../../../dammy/models/product.dart';
@@ -15,16 +16,16 @@ class OrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(14),
+      margin: EdgeInsets.only(bottom: 16.h),
+      padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: const [
+        borderRadius: BorderRadius.circular(18.r),
+        boxShadow: [
           BoxShadow(
-            blurRadius: 10,
+            blurRadius: 10.r,
             color: Colors.black12,
-            offset: Offset(0, 4),
+            offset: Offset(0, 4.h),
           ),
         ],
       ),
@@ -42,21 +43,26 @@ class OrderProductRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(vertical: 8.h),
       child: Row(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(10.r),
             child: Image.network(
               product.imageUrl,
-              width: 50,
-              height: 50,
+              width: 50.w,
+              height: 50.h,
               fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(width: 10),
-          Expanded(child: Text(product.name)),
-          Text('\$${product.price.toStringAsFixed(2)}'),
+          SizedBox(width: 10.w),
+          Expanded(
+            child: Text(product.name, style: TextStyle(fontSize: 14.sp)),
+          ),
+          Text(
+            '\$${product.price.toStringAsFixed(2)}',
+            style: TextStyle(fontSize: 14.sp),
+          ),
         ],
       ),
     );
@@ -81,11 +87,11 @@ class OrderTrackingTimeline extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Tracking',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: 10.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -113,14 +119,14 @@ class TrackingStep extends StatelessWidget {
     return Column(
       children: [
         CircleAvatar(
-          radius: 10,
+          radius: 10.r,
           backgroundColor: done ? Colors.green : Colors.grey.shade300,
           child: done
-              ? const Icon(Icons.check, size: 12, color: Colors.white)
+              ? Icon(Icons.check, size: 12.w, color: Colors.white)
               : null,
         ),
-        const SizedBox(height: 4),
-        Text(title, style: const TextStyle(fontSize: 11)),
+        SizedBox(height: 4.h),
+        Text(title, style: TextStyle(fontSize: 11.sp)),
       ],
     );
   }
@@ -136,7 +142,7 @@ class TrackingLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        height: 2,
+        height: 2.h,
         color: done ? Colors.green : Colors.grey.shade300,
       ),
     );
@@ -149,17 +155,12 @@ class PriceRow extends StatelessWidget {
   final double value;
   final bool bold;
 
-  const PriceRow(
-    this.title,
-    this.value, {
-    super.key,
-    this.bold = false,
-  });
+  const PriceRow(this.title, this.value, {super.key, this.bold = false});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: EdgeInsets.symmetric(vertical: 4.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -167,12 +168,14 @@ class PriceRow extends StatelessWidget {
             title,
             style: TextStyle(
               fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+              fontSize: 14.sp,
             ),
           ),
           Text(
             '\$${value.toStringAsFixed(2)}',
             style: TextStyle(
               fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+              fontSize: 14.sp,
             ),
           ),
         ],
@@ -185,88 +188,80 @@ class OrderStatusBadge extends StatelessWidget {
   final OrderStatus status;
   final VoidCallback? onCancel;
 
-  const OrderStatusBadge({
-    super.key,
-    required this.status,
-    this.onCancel,
-  });
+  const OrderStatusBadge({super.key, required this.status, this.onCancel});
 
   @override
   Widget build(BuildContext context) {
-    final isDelivered = status == OrderStatus.delivered;
-    final isCancelled = status == OrderStatus.cancelled;
-
     Color bg;
     Color textColor;
     String label;
 
     switch (status) {
       case OrderStatus.delivered:
-        bg = Colors.green.withOpacity(.12);
+        bg = Colors.green.withValues(alpha: 0.12);
         textColor = Colors.green;
         label = "Delivered";
         break;
 
       case OrderStatus.shipped:
-        bg = Colors.blue.withOpacity(.12);
+        bg = Colors.blue.withValues(alpha: 0.12);
         textColor = Colors.blue;
         label = "Shipped";
         break;
 
       case OrderStatus.cancelled:
-        bg = Colors.red.withOpacity(.12);
+        bg = Colors.red.withValues(alpha: 0.12);
         textColor = Colors.red;
         label = "Cancelled";
         break;
 
       default:
-        bg = Colors.grey.withOpacity(.12);
+        bg = Colors.grey.withValues(alpha: 0.12);
         textColor = Colors.grey;
         label = "Processing";
     }
 
     return Row(
-      
       children: [
         /// Status Badge
         Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
           decoration: BoxDecoration(
             color: bg,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(8.r),
           ),
           child: Text(
             label,
             style: TextStyle(
               color: textColor,
               fontWeight: FontWeight.bold,
+              fontSize: 12.sp,
             ),
           ),
         ),
-Spacer(),
-        /// Cancel Button (only if not delivered/cancelled)
-        if (!isDelivered && !isCancelled) ...[
-          const SizedBox(width: 10),
-          GestureDetector(
-            onTap: onCancel,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 10, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.red.withOpacity(.12),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Text(
-                "Cancel",
-                style: TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ],
+        const Spacer(),
+        // /// Cancel Button (only if not delivered/cancelled)
+        // if (!isDelivered && !isCancelled) ...[
+        //   const SizedBox(width: 10),
+        //   GestureDetector(
+        //     onTap: onCancel,
+        //     child: Container(
+        //       padding: const EdgeInsets.symmetric(
+        //           horizontal: 10, vertical: 6),
+        //       decoration: BoxDecoration(
+        //         color: Colors.red.withOpacity(.12),
+        //         borderRadius: BorderRadius.circular(8),
+        //       ),
+        //       child: const Text(
+        //         "Cancel",
+        //         style: TextStyle(
+        //           color: Colors.red,
+        //           fontWeight: FontWeight.bold,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ],
       ],
     );
   }
@@ -281,13 +276,15 @@ class OrderReorderButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.w),
       child: SizedBox(
-        height: 55,
+        height: 55.h,
         child: ElevatedButton(
           onPressed: () {
-            final provider =
-                Provider.of<ProductProvider>(context, listen: false);
+            final provider = Provider.of<ProductProvider>(
+              context,
+              listen: false,
+            );
 
             provider.reorder(order);
 
@@ -302,9 +299,9 @@ class OrderReorderButton extends StatelessWidget {
 
             Navigation().goToScreenAndClearAll(context, '/cart');
           },
-          child: const Text(
+          child: Text(
             "Re-Order",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
           ),
         ),
       ),

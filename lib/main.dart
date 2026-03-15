@@ -5,11 +5,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'services/app_router.dart';
 import 'styles/text_style.dart';
 import 'dammy/providers/product_provider.dart';
+import 'dammy/providers/order_provider.dart';
+import 'dammy/providers/profile_provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => ProductProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProductProvider()),
+        ChangeNotifierProvider(create: (_) => OrderProvider()),
+        ChangeNotifierProvider(create: (_) => ProfileProvider()),
+      ],
       child: const MyApp(),
     ),
   );

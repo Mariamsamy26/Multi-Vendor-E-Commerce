@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:multi_vendor_e_commerce/dammy/data/date_dammy.dart';
 import 'package:multi_vendor_e_commerce/dammy/models/categories.dart';
 
-
 class CategoriesList {
   CategoriesList._();
 
   static List<CategoryModel> get categories {
-    final uniqueCategories =
-        DummyData.products.map((e) => e.category).toSet().toList();
+    final uniqueCategories = DummyData.products
+        .map((e) => e.category)
+        .toSet()
+        .toList();
 
     return uniqueCategories.map((category) {
       switch (category) {

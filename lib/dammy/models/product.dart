@@ -20,4 +20,34 @@ class Product {
     this.inStock = true,
     this.isFavorite = false,
   });
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      category: json['category'] as String,
+      vendor: json['vendor'] as String,
+      imageUrl: json['imageUrl'] as String,
+      price: (json['price'] as num).toDouble(),
+      originalPrice: json['originalPrice'] != null
+          ? (json['originalPrice'] as num).toDouble()
+          : null,
+      inStock: json['inStock'] as bool? ?? true,
+      isFavorite: json['isFavorite'] as bool? ?? false,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'category': category,
+      'vendor': vendor,
+      'imageUrl': imageUrl,
+      'price': price,
+      'originalPrice': originalPrice,
+      'inStock': inStock,
+      'isFavorite': isFavorite,
+    };
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 
 class ExploreFilterChip extends StatelessWidget {
@@ -16,31 +17,31 @@ class ExploreFilterChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(right: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      margin: EdgeInsets.only(right: 8.w),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: isSelected ? AppColors.primary : Colors.white,
         border: Border.all(
           color: isSelected ? AppColors.primary : Colors.grey[300]!,
         ),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20.r),
       ),
       child: Row(
         children: [
-          if (isSelected)
-            const Icon(Icons.check, size: 16, color: Colors.white),
-          if (isSelected) const SizedBox(width: 4),
+          if (isSelected) Icon(Icons.check, size: 16.w, color: Colors.white),
+          if (isSelected) SizedBox(width: 4.w),
           Text(
             label,
             style: TextStyle(
               color: isSelected ? Colors.white : AppColors.textPrimary,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+              fontSize: 14.sp,
             ),
           ),
-          const SizedBox(width: 4),
+          SizedBox(width: 4.w),
           Icon(
             icon,
-            size: 16,
+            size: 16.w,
             color: isSelected ? Colors.white : AppColors.textSecondary,
           ),
         ],

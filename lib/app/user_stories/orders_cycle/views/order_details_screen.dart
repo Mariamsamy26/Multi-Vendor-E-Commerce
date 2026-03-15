@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../dammy/models/order.dart';
 import '../widget/order_details_widgets.dart';
 import 'package:multi_vendor_e_commerce/dammy/data/orderes_list.dart';
@@ -26,16 +27,13 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     return Scaffold(
       backgroundColor: const Color(0xffF5F6FA),
 
-      appBar: AppBar(
-        title: const Text('Order Details'),
-        elevation: 0,
-      ),
+      appBar: AppBar(title: const Text('Order Details'), elevation: 0),
 
       /// 🔥 Sticky bottom button
       bottomNavigationBar: OrderReorderButton(order: order),
 
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.w),
         children: [
           /// ================= HEADER =================
           OrderCard(
@@ -44,43 +42,40 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               children: [
                 Text(
                   'Order #${order.id}',
-                  style: const TextStyle(
-                    fontSize: 18,
+                  style: TextStyle(
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
 
-                const SizedBox(height: 6),
+                SizedBox(height: 6.h),
 
                 Text(
                   'Placed on ${order.date.day}/${order.date.month}/${order.date.year}',
                   style: const TextStyle(color: Colors.grey),
                 ),
 
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
 
                 /// ✅ FIXED Cancel Logic
                 OrderStatusBadge(
                   status: order.status,
                   onCancel: () {
                     setState(() {
-                    
-
                       /// optional: update dummy list too
-                      final index = DummyOrders.orders
-                          .indexWhere((o) => o.id == order.id);
+                      final index = DummyOrders.orders.indexWhere(
+                        (o) => o.id == order.id,
+                      );
 
-  // order.status = OrderStatus.cancelled;
-  
+                      // order.status = OrderStatus.cancelled;
+
                       if (index != -1) {
                         DummyOrders.orders[index] = order;
                       }
                     });
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Order cancelled"),
-                      ),
+                      const SnackBar(content: Text("Order cancelled")),
                     );
                   },
                 ),
@@ -89,9 +84,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           ),
 
           /// ================= TRACKING =================
-          OrderCard(
-            child: OrderTrackingTimeline(status: order.status),
-          ),
+          OrderCard(child: OrderTrackingTimeline(status: order.status)),
 
           /// ================= ITEMS =================
           OrderCard(
@@ -114,7 +107,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             ),
           ),
 
-          const SizedBox(height: 80),
+          SizedBox(height: 80.h),
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
@@ -17,9 +18,9 @@ class WishlistScreen extends StatelessWidget {
           length: 2,
           child: Scaffold(
             appBar: AppBar(
-              title: const Text(
+              title: Text(
                 'Wishlist',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
               ),
               actions: [
                 IconButton(icon: const Icon(Icons.search), onPressed: () {}),
@@ -48,7 +49,7 @@ class WishlistScreen extends StatelessWidget {
               ),
             ),
             body: ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16.w),
               itemCount: wishlist.length,
               itemBuilder: (context, index) {
                 return WishlistItem(product: wishlist[index]);

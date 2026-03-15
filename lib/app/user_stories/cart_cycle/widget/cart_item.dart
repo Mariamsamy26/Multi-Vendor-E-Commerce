@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../../../dammy/models/product.dart';
 import '../../../../dammy/providers/product_provider.dart';
@@ -12,14 +13,13 @@ class CartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
- final provider = Provider.of<ProductProvider>(context, listen: false);
+    final provider = Provider.of<ProductProvider>(context, listen: false);
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 16.h),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         border: Border.all(color: const Color(0xFFEEEEEE)),
       ),
       child: Row(
@@ -27,58 +27,58 @@ class CartItem extends StatelessWidget {
         children: [
           CachedNetworkImage(
             imageUrl: product.imageUrl,
-            width: 80,
-            height: 80,
+            width: 80.w,
+            height: 80.h,
             fit: BoxFit.cover,
-            placeholder: (context, url) => const Center(
+            placeholder: (context, url) => Center(
               child: SizedBox(
-                width: 25,
-                height: 25,
-                child: CircularProgressIndicator(strokeWidth: 2),
+                width: 25.w,
+                height: 25.h,
+                child: const CircularProgressIndicator(strokeWidth: 2),
               ),
             ),
-            errorWidget: (context, url, error) => const Center(
-              child: Icon(Icons.broken_image, size: 40, color: Colors.grey),
+            errorWidget: (context, url, error) => Center(
+              child: Icon(Icons.broken_image, size: 40.w, color: Colors.grey),
             ),
           ),
-          const SizedBox(width: 16),
-          Expanded(child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                product.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
+          SizedBox(width: 16.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        product.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.sp,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete_outline),
+                      onPressed: () => provider.removeFromCart(product),
+                    ),
+                  ],
                 ),
-                overflow: TextOverflow.ellipsis,
-              ),
+                SizedBox(height: 8.h),
+                Text(
+                  '\$${product.price.toStringAsFixed(2)}',
+                  style: TextStyle(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.sp,
+                  ),
+                ),
+              ],
             ),
-            IconButton(
-              icon: const Icon(Icons.delete_outline),
-              onPressed: () => provider.removeFromCart(product),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        Text(
-          '\$${product.price.toStringAsFixed(2)}',
-          style: const TextStyle(
-            color: AppColors.primary,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
           ),
-        ),
-      ],
-    )),
         ],
       ),
     );
   }
 }
-
-

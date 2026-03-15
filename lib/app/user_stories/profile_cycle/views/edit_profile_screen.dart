@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 
@@ -20,8 +21,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
     // Initialize with existing profile data
     _nameController = TextEditingController(text: 'Alex Johnson');
-    _emailController =
-        TextEditingController(text: 'alex.johnson@example.com');
+    _emailController = TextEditingController(text: 'alex.johnson@example.com');
     _phoneController = TextEditingController(text: '+1 (555) 987-6543');
     _dobController = TextEditingController(text: 'March 15, 1992');
   }
@@ -39,13 +39,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Edit Profile',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(24.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -53,11 +53,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Center(
               child: Stack(
                 children: [
-                  const CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Color(0xFFE5E7EB),
-                    child:
-                        Icon(Icons.person, size: 60, color: Colors.grey),
+                  CircleAvatar(
+                    radius: 50.r,
+                    backgroundColor: const Color(0xFFE5E7EB),
+                    child: Icon(Icons.person, size: 60.w, color: Colors.grey),
                   ),
                   Positioned(
                     bottom: 0,
@@ -73,17 +72,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         );
                       },
                       child: CircleAvatar(
-                        radius: 16,
+                        radius: 16.r,
                         backgroundColor: AppColors.primary,
-                        child: const Icon(Icons.camera_alt,
-                            color: Colors.white, size: 16),
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
+                          size: 16.w,
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 32),
+            SizedBox(height: 32.h),
 
             // Form fields
             _buildTextField(
@@ -91,21 +93,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               label: 'Full Name',
               icon: Icons.person_outline,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             _buildTextField(
               controller: _emailController,
               label: 'Email Address',
               icon: Icons.email_outlined,
               keyboardType: TextInputType.emailAddress,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             _buildTextField(
               controller: _phoneController,
               label: 'Phone Number',
               icon: Icons.phone_outlined,
               keyboardType: TextInputType.phone,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             _buildTextField(
               controller: _dobController,
               label: 'Date of Birth',
@@ -115,11 +117,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 // TODO: implement date picker
               },
             ),
-            const SizedBox(height: 32),
+            SizedBox(height: 32.h),
 
             // Save button
             SizedBox(
-              height: 50,
+              height: 50.h,
               child: ElevatedButton(
                 onPressed: () {
                   // TODO: save profile changes
@@ -133,12 +135,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                   ),
                 ),
-                child: const Text(
+                child: Text(
                   'Save Changes',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -164,11 +169,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: Icon(icon, color: AppColors.textSecondary),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.r)),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       ),
     );
   }

@@ -50,7 +50,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
     // apply text search if provided
     if (_searchQuery.isNotEmpty) {
       list = list
-          .where((p) => p.name.toLowerCase().contains(_searchQuery.toLowerCase()))
+          .where(
+            (p) => p.name.toLowerCase().contains(_searchQuery.toLowerCase()),
+          )
           .toList();
     }
 
@@ -113,13 +115,18 @@ class _ExploreScreenState extends State<ExploreScreen> {
   }
 
   void _showCategoryFilter(List<Product> products) {
-    final List<String> categories = products.map((p) => p.category).toSet().toList();
+    final List<String> categories = products
+        .map((p) => p.category)
+        .toSet()
+        .toList();
     showModalBottomSheet(
       context: context,
       builder: (ctx) {
-        return StatefulBuilder(builder: (ctx2, setState2) {
-          final items = categories
-              .map<Widget>((cat) => CheckboxListTile(
+        return StatefulBuilder(
+          builder: (ctx2, setState2) {
+            final items = categories
+                .map<Widget>(
+                  (cat) => CheckboxListTile(
                     title: Text(cat),
                     value: _selectedCategories.contains(cat),
                     onChanged: (v) {
@@ -131,22 +138,21 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         }
                       });
                     },
-                  ))
-              .toList();
-          items.add(
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(ctx).pop(),
-                child: const Text('Done'),
+                  ),
+                )
+                .toList();
+            items.add(
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: ElevatedButton(
+                  onPressed: () => Navigator.of(ctx).pop(),
+                  child: const Text('Done'),
+                ),
               ),
-            ),
-          );
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: items,
-          );
-        });
+            );
+            return Column(mainAxisSize: MainAxisSize.min, children: items);
+          },
+        );
       },
     ).whenComplete(() => setState(() {}));
   }
@@ -156,9 +162,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
     showModalBottomSheet(
       context: context,
       builder: (ctx) {
-        return StatefulBuilder(builder: (ctx2, setState2) {
-          final items = vendors
-              .map<Widget>((vendor) => CheckboxListTile(
+        return StatefulBuilder(
+          builder: (ctx2, setState2) {
+            final items = vendors
+                .map<Widget>(
+                  (vendor) => CheckboxListTile(
                     title: Text(vendor),
                     value: _selectedVendors.contains(vendor),
                     onChanged: (v) {
@@ -170,22 +178,21 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         }
                       });
                     },
-                  ))
-              .toList();
-          items.add(
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(ctx).pop(),
-                child: const Text('Done'),
+                  ),
+                )
+                .toList();
+            items.add(
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: ElevatedButton(
+                  onPressed: () => Navigator.of(ctx).pop(),
+                  child: const Text('Done'),
+                ),
               ),
-            ),
-          );
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: items,
-          );
-        });
+            );
+            return Column(mainAxisSize: MainAxisSize.min, children: items);
+          },
+        );
       },
     ).whenComplete(() => setState(() {}));
   }
@@ -194,9 +201,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Explore Marketplace',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
         actions: [
           IconButton(
@@ -225,16 +232,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           _searchController.clear();
                           // listener will update state
                         },
-                        child: const Icon(
-                          Icons.clear,
-                          color: Colors.grey,
-                        ),
+                        child: const Icon(Icons.clear, color: Colors.grey),
                       )
                     : null,
                 filled: true,
                 fillColor: Colors.grey[100],
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r),
                   borderSide: BorderSide.none,
                 ),
                 contentPadding: EdgeInsets.symmetric(vertical: 12.h),
@@ -245,14 +249,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
           // Filter / sort chips
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Row(
               children: [
                 GestureDetector(
                   onTap: () {
                     _showCategoryFilter(
-                        Provider.of<ProductProvider>(context, listen: false)
-                            .products);
+                      Provider.of<ProductProvider>(
+                        context,
+                        listen: false,
+                      ).products,
+                    );
                   },
                   child: ExploreFilterChip(
                     label: 'Filters',
@@ -282,8 +289,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 GestureDetector(
                   onTap: () {
                     _showVendorFilter(
-                        Provider.of<ProductProvider>(context, listen: false)
-                            .products);
+                      Provider.of<ProductProvider>(
+                        context,
+                        listen: false,
+                      ).products,
+                    );
                   },
                   child: ExploreFilterChip(
                     label: 'Brand',
@@ -302,14 +312,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
             child: Consumer<ProductProvider>(
               builder: (context, provider, _) {
                 // ensure default filter includes everything on first build
-                if (_selectedCategories.isEmpty && provider.products.isNotEmpty) {
+                if (_selectedCategories.isEmpty &&
+                    provider.products.isNotEmpty) {
                   // add all categories so that "Filters" chip appears active
                   _selectedCategories.addAll(
-                      provider.products.map((p) => p.category).toSet());
+                    provider.products.map((p) => p.category).toSet(),
+                  );
                 }
                 if (_selectedVendors.isEmpty && provider.products.isNotEmpty) {
-                  _selectedVendors
-                      .addAll(provider.products.map((p) => p.vendor).toSet());
+                  _selectedVendors.addAll(
+                    provider.products.map((p) => p.vendor).toSet(),
+                  );
                 }
 
                 final products = _applyFilterAndSort(provider.products);
@@ -317,7 +330,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   return const Center(child: Text('No products match'));
                 }
                 return ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
                   itemCount: products.length,
                   itemBuilder: (context, index) {
                     return ExploreProductListItem(product: products[index]);

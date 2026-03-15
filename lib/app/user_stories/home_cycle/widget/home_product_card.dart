@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 import 'package:provider/provider.dart';
@@ -22,18 +23,21 @@ class HomeProductCard extends StatefulWidget {
 }
 
 class _HomeProductCardState extends State<HomeProductCard> {
-
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ProductProvider>(context, listen: false);
     return GestureDetector(
       onTap: () {
-        Navigation().goToScreen(context, '/product-details', extra: widget.product);
+        Navigation().goToScreen(
+          context,
+          '/product-details',
+          extra: widget.product,
+        );
       },
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
           border: Border.all(color: Colors.grey[200]!),
         ),
         child: Column(
@@ -46,43 +50,53 @@ class _HomeProductCardState extends State<HomeProductCard> {
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[100],
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(16),
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(16.r),
                       ),
                     ),
                     child: widget.product.imageUrl.isNotEmpty
                         ? ClipRRect(
-  borderRadius: BorderRadius.circular(12),
-  child: SizedBox(
-    width: double.infinity, 
-    height: double.infinity, 
-    child: CachedNetworkImage(
-      imageUrl: widget.product.imageUrl,
-      fit: BoxFit.cover,
-      placeholder: (context, url) => Container(
-        color: Colors.grey.shade100,
-        child: const Center(
-          child: SizedBox(
-            width: 30,
-            height: 30,
-            child: CircularProgressIndicator(strokeWidth: 2),
-          ),
-        ),
-      ),
-      errorWidget: (context, url, error) => Container(
-        color: Colors.grey.shade200,
-        child: const Icon(Icons.image, color: Colors.grey),
-      ),
-    ),
-  ),
-) : Center(
-                            child: Icon(Icons.image,
-                                size: 50, color: Colors.grey[400]),
+                            borderRadius: BorderRadius.circular(12.r),
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: double.infinity,
+                              child: CachedNetworkImage(
+                                imageUrl: widget.product.imageUrl,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => Container(
+                                  color: Colors.grey.shade100,
+                                  child: Center(
+                                    child: SizedBox(
+                                      width: 30.w,
+                                      height: 30.h,
+                                      child: const CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) => Container(
+                                  color: Colors.grey.shade200,
+                                  child: Icon(
+                                    Icons.image,
+                                    color: Colors.grey,
+                                    size: 24.w,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : Center(
+                            child: Icon(
+                              Icons.image,
+                              size: 50.w,
+                              color: Colors.grey[400],
+                            ),
                           ),
                   ),
                   Positioned(
-                    top: 8,
-                    right: 8,
+                    top: 8.h,
+                    right: 8.w,
                     child: GestureDetector(
                       onTap: () {
                         provider.toggleWishlistStatus(widget.product);
@@ -90,42 +104,47 @@ class _HomeProductCardState extends State<HomeProductCard> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              widget.product.isFavorite ? 'Added to wishlist' : 'Removed from wishlist',
+                              widget.product.isFavorite
+                                  ? 'Added to wishlist'
+                                  : 'Removed from wishlist',
                             ),
                             duration: const Duration(seconds: 1),
                           ),
                         );
                       },
                       child: CircleAvatar(
-                        backgroundColor:
-                            Colors.white.withValues(alpha: 0.9),
-                        radius: 14,
+                        backgroundColor: Colors.white.withValues(alpha: 0.9),
+                        radius: 14.r,
                         child: Icon(
-                          widget.product.isFavorite ? Icons.favorite : Icons.favorite_border,
-                          size: 16,
-                          color: widget.product.isFavorite ? Colors.red : Colors.grey,
+                          widget.product.isFavorite
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          size: 16.w,
+                          color: widget.product.isFavorite
+                              ? Colors.red
+                              : Colors.grey,
                         ),
                       ),
                     ),
                   ),
                   if (widget.isSale)
                     Positioned(
-                      top: 8,
-                      left: 8,
+                      top: 8.h,
+                      left: 8.w,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6.w,
+                          vertical: 2.h,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.red,
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.circular(4.r),
                         ),
-                        child: const Text(
+                        child: Text(
                           'SALE',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 10,
+                            fontSize: 10.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -136,7 +155,7 @@ class _HomeProductCardState extends State<HomeProductCard> {
             ),
             // Info Area
             Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: EdgeInsets.all(12.0.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -144,30 +163,30 @@ class _HomeProductCardState extends State<HomeProductCard> {
                     widget.product.category,
                     style: TextStyle(
                       color: Colors.grey[500],
-                      fontSize: 10,
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h),
                   Text(
                     widget.product.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 14,
+                      fontSize: 14.sp,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         '\$${widget.product.price.toStringAsFixed(2)}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primary,
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                          fontSize: 16.sp,
                         ),
                       ),
                       GestureDetector(
@@ -181,15 +200,15 @@ class _HomeProductCardState extends State<HomeProductCard> {
                           );
                         },
                         child: Container(
-                          padding: const EdgeInsets.all(4),
+                          padding: EdgeInsets.all(4.w),
                           decoration: BoxDecoration(
                             color: AppColors.primary.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(8.r),
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.add_shopping_cart,
                             color: AppColors.primary,
-                            size: 16,
+                            size: 16.w,
                           ),
                         ),
                       ),
