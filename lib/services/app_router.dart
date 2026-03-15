@@ -17,6 +17,10 @@ import 'package:multi_vendor_e_commerce/app/user_stories/wishlist_cycle/views/wi
 import 'package:multi_vendor_e_commerce/app/user_stories/cart_cycle/views/cart_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/cart_cycle/views/checkout_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/orders_cycle/views/rate_order_screen.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/profile_cycle/views/address_list_screen.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/profile_cycle/views/add_edit_address_screen.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/profile_cycle/views/settings_screen.dart';
+import 'package:multi_vendor_e_commerce/dammy/models/profile_model.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'root',
@@ -81,6 +85,20 @@ class AppRouter {
         path: '/rate-order',
         builder: (context, state) =>
             RateOrderScreen(order: state.extra as OrderModel),
+      ),
+      GoRoute(
+        path: '/address-list',
+        builder: (context, state) => const AddressListScreen(),
+      ),
+      GoRoute(
+        path: '/add-edit-address',
+        builder: (context, state) => AddEditAddressScreen(
+          address: state.extra as AddressModel?,
+        ),
+      ),
+      GoRoute(
+        path: '/settings',
+        builder: (context, state) => const SettingsScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

@@ -54,6 +54,49 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addAddress(AddressModel address) {
+    if (_profile != null) {
+      final updatedAddresses = List<AddressModel>.from(_profile!.addresses);
+      // If new address is default, unset other defaults
+      if (address.isDefault) {
+        for (int i = 0; i < updatedAddresses.length; i++) {
+          updatedAddresses[i] = updatedAddresses[i].copyWith(isDefault: false);
+        }
+      }
+      updatedAddresses.add(address);
+      _profile = _profile!.copyWith(addresses: updatedAddresses);
+      _saveProfile();
+      notifyListeners();
+    }
+  }
+
+  void updateAddress(AddressModel updatedAddress) {
+    if (_profile != null) {
+      final updatedAddresses = _profile!.addresses.map((a) {
+        if (a.id == updatedAddress.id) {
+          return updatedAddress;
+        }
+        if (updatedAddress.isDefault && a.id != updatedAddress.id) {
+          return a.copyWith(isDefault: false);
+        }
+        return a;
+      }).toList();
+      _profile = _profile!.copyWith(addresses: updatedAddresses);
+      _saveProfile();
+      notifyListeners();
+    }
+  }
+
+  void removeAddress(String addressId) {
+    if (_profile != null) {
+      final updatedAddresses =
+          _profile!.addresses.where((a) => a.id != addressId).toList();
+      _profile = _profile!.copyWith(addresses: updatedAddresses);
+      _saveProfile();
+      notifyListeners();
+    }
+  }
+
   Future<void> _saveProfile() async {
     if (_profile != null) {
       await _prefsService.saveProfile(_profile!);

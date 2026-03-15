@@ -47,7 +47,9 @@ class ProfileScreen extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(Icons.settings_outlined),
-                onPressed: () {},
+                onPressed: () {
+                  Navigation().goToScreen(context, '/settings');
+                },
               ),
             ],
           ),
@@ -167,21 +169,31 @@ class ProfileScreen extends StatelessWidget {
                               color: AppColors.textSecondary,
                             ),
                           ),
-                          TextButton.icon(
-                            onPressed: () {},
-                            icon: Icon(Icons.add, size: 16.w),
-                            label: Text('add_new'.tr()),
+                          Row(
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigation().goToScreen(context, '/address-list');
+                                },
+                                child: Text('view_all'.tr()),
+                              ),
+                              TextButton.icon(
+                                onPressed: () {
+                                  Navigation().goToScreen(context, '/add-edit-address');
+                                },
+                                icon: Icon(Icons.add, size: 16.w),
+                                label: Text('add_new'.tr()),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                       SizedBox(height: 8.h),
-                      ...profile.addresses.map((address) {
+                      ...profile.addresses.take(2).map((address) {
                         return Padding(
                           padding: EdgeInsets.only(bottom: 16.0.h),
                           child: ProfileAddressCard(
-                            type: address.label,
-                            address: address.addressDetails,
-                            isDefault: address.isDefault,
+                            address: address,
                           ),
                         );
                       }),

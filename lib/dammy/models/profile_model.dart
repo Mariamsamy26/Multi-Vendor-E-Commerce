@@ -28,6 +28,20 @@ class AddressModel {
       'isDefault': isDefault,
     };
   }
+
+  AddressModel copyWith({
+    String? id,
+    String? label,
+    String? addressDetails,
+    bool? isDefault,
+  }) {
+    return AddressModel(
+      id: id ?? this.id,
+      label: label ?? this.label,
+      addressDetails: addressDetails ?? this.addressDetails,
+      isDefault: isDefault ?? this.isDefault,
+    );
+  }
 }
 
 class ProfileModel {

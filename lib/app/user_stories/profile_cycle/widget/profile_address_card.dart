@@ -3,16 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 
+import 'package:multi_vendor_e_commerce/dammy/models/profile_model.dart';
+import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
+import 'package:provider/provider.dart';
+import 'package:multi_vendor_e_commerce/dammy/providers/profile_provider.dart';
+
 class ProfileAddressCard extends StatelessWidget {
-  final String type;
-  final String address;
-  final bool isDefault;
+  final AddressModel address;
 
   const ProfileAddressCard({
     super.key,
-    required this.type,
     required this.address,
-    required this.isDefault,
   });
 
   @override
@@ -22,7 +23,7 @@ class ProfileAddressCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: const Color(0xFFEEEEEE)), // Colors.grey[200]
+        border: Border.all(color: const Color(0xFFEEEEEE)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,16 +31,18 @@ class ProfileAddressCard extends StatelessWidget {
           Row(
             children: [
               Icon(
-                type == 'Home' ? Icons.home_outlined : Icons.work_outline,
+                address.label == 'Home' ? Icons.home_outlined : Icons.work_outline,
                 color: AppColors.textSecondary,
               ),
               SizedBox(width: 8.w),
               Text(
-                type == 'Home' ? 'home'.tr() : (type == 'Work' ? 'work'.tr() : type),
+                address.label == 'Home'
+                    ? 'home'.tr()
+                    : (address.label == 'Work' ? 'work'.tr() : address.label),
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               const Spacer(),
-              if (isDefault)
+              if (address.isDefault)
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                   decoration: BoxDecoration(
@@ -59,14 +62,16 @@ class ProfileAddressCard extends StatelessWidget {
           ),
           SizedBox(height: 12.h),
           Text(
-            address,
+            address.addressDetails,
             style: const TextStyle(color: AppColors.textSecondary, height: 1.5),
           ),
           SizedBox(height: 16.h),
           Row(
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigation().goToScreen(context, '/add-edit-address', extra: address);
+                },
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.zero,
                   minimumSize: Size(50.w, 30.h),
@@ -81,7 +86,9 @@ class ProfileAddressCard extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  _showDeleteDialog(context);
+                },
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.zero,
                   minimumSize: Size(50.w, 30.h),
@@ -97,6 +104,30 @@ class ProfileAddressCard extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showDeleteDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('delete_address'.tr()),
+        content: Text('delete_address_confirmation'.tr()),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text('cancel'.tr()),
+          ),
+          TextButton(
+            onPressed: () {
+              Provider.of<ProfileProvider>(context, listen: false)
+                  .removeAddress(address.id);
+              Navigator.pop(ctx);
+            },
+            child: Text('delete'.tr(), style: const TextStyle(color: Colors.red)),
           ),
         ],
       ),

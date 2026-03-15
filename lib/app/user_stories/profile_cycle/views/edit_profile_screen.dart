@@ -3,6 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
+import 'package:provider/provider.dart';
+import 'package:multi_vendor_e_commerce/dammy/providers/profile_provider.dart';
+import 'package:multi_vendor_e_commerce/dammy/models/profile_model.dart';
+import 'dart:io';
+// import 'package:image_picker/image_picker.dart'; // Add this when ready
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -16,15 +21,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late TextEditingController _emailController;
   late TextEditingController _phoneController;
   late TextEditingController _dobController;
+  String? _avatarUrl;
 
   @override
   void initState() {
     super.initState();
-    // Initialize with existing profile data
-    _nameController = TextEditingController(text: 'Alex Johnson');
-    _emailController = TextEditingController(text: 'alex.johnson@example.com');
-    _phoneController = TextEditingController(text: '+1 (555) 987-6543');
-    _dobController = TextEditingController(text: 'March 15, 1992');
+    final profileProvider =
+        Provider.of<ProfileProvider>(context, listen: false);
+    final profile = profileProvider.profile;
+
+    _nameController = TextEditingController(text: profile?.fullName ?? '');
+    _emailController = TextEditingController(text: profile?.email ?? '');
+    _phoneController = TextEditingController(text: profile?.phoneNumber ?? '');
+    _dobController = TextEditingController(text: profile?.dateOfBirth ?? '');
+    _avatarUrl = profile?.avatarUrl;
   }
 
   @override
@@ -54,17 +64,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Center(
               child: Stack(
                 children: [
-                   CircleAvatar(
+                  CircleAvatar(
                     radius: 50.r,
                     backgroundColor: const Color(0xFFE5E7EB),
-                    child: Icon(Icons.person, size: 60.w, color: Colors.grey),
+                    backgroundImage: _avatarUrl != null && _avatarUrl!.isNotEmpty
+                        ? NetworkImage(_avatarUrl!)
+                        : null,
+                    child: _avatarUrl == null || _avatarUrl!.isEmpty
+                        ? Icon(Icons.person, size: 60.w, color: Colors.grey)
+                        : null,
                   ),
                   Positioned(
                     bottom: 0,
                     right: 0,
                     child: GestureDetector(
                       onTap: () {
-                        // TODO: implement image picker
+                        // TODO: implement actual image picker
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('image_picker_coming_soon'.tr()),
@@ -114,8 +129,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               label: 'date_of_birth'.tr(),
               icon: Icons.calendar_today_outlined,
               readOnly: true,
-              onTap: () {
-                // TODO: implement date picker
+              onTap: () async {
+                final date = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now().subtract(const Duration(days: 365 * 20)),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime.now(),
+                );
+                if (date != null) {
+                  _dobController.text = DateFormat('MMMM dd, yyyy').format(date);
+                }
               },
             ),
             SizedBox(height: 32.h),
@@ -125,14 +148,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               height: 50.h,
               child: ElevatedButton(
                 onPressed: () {
-                  // TODO: save profile changes
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('profile_updated_successfully'.tr()),
-                      duration: const Duration(seconds: 1),
-                    ),
-                  );
-                  Navigation().closeDialog(context);
+                  final profileProvider =
+                      Provider.of<ProfileProvider>(context, listen: false);
+                  if (profileProvider.profile != null) {
+                    final updatedProfile = profileProvider.profile!.copyWith(
+                      fullName: _nameController.text,
+                      email: _emailController.text,
+                      phoneNumber: _phoneController.text,
+                      dateOfBirth: _dobController.text,
+                      avatarUrl: _avatarUrl,
+                    );
+                    profileProvider.updateProfile(updatedProfile);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('profile_updated_successfully'.tr()),
+                        duration: const Duration(seconds: 1),
+                      ),
+                    );
+                    Navigation().closeDialog(context);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
