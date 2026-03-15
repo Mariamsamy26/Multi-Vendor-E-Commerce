@@ -1,27 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 import '../widget/product_spec_chip.dart';
 import '../../../../dammy/models/product.dart';
 import '../../../../dammy/providers/product_provider.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
+class ProductDetailsScreen extends StatefulWidget {
   final Product? product;
 
   const ProductDetailsScreen({super.key, this.product});
 
   @override
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  int _quantity = 1;
+
+  @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ProductProvider>(context, listen: false);
-    final prod = product ?? provider.products.first;
+    final prod = widget.product ?? provider.products.first;
 
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(),
         title: Text(
-          'Product Details',
+          'product_details'.tr(),
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
         actions: [
@@ -78,15 +86,16 @@ class ProductDetailsScreen extends StatelessWidget {
                           SnackBar(
                             content: Text(
                               added
-                                  ? 'Added to wishlist'
-                                  : 'Removed from wishlist',
+                                  ? 'added_to_wishlist'.tr()
+                                  : 'removed_from_wishlist'.tr(),
                             ),
                             duration: const Duration(seconds: 1),
                           ),
                         );
+                        setState(() {}); // Rebuild for favorite icon
                       },
                       child: CircleAvatar(
-                        backgroundColor: Colors.white.withValues(alpha: 0.8),
+                        backgroundColor: Colors.white.withOpacity(0.8),
                         child: Icon(
                           prod.isFavorite
                               ? Icons.favorite
@@ -139,14 +148,14 @@ class ProductDetailsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8.h),
                   Text(
-                    'Vision Pro Headphones',
+                    prod.name,
                     style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8.h),
                   Row(
                     children: [
                       Text(
-                        '\$299.99',
+                        '\$${prod.price}',
                         style: TextStyle(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
@@ -154,25 +163,26 @@ class ProductDetailsScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Text(
-                        '\$349.00',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          decoration: TextDecoration.lineThrough,
-                          color: Colors.grey[400],
+                      if (prod.originalPrice != null)
+                        Text(
+                          '\$${prod.originalPrice}',
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            decoration: TextDecoration.lineThrough,
+                            color: Colors.grey[400],
+                          ),
                         ),
-                      ),
                     ],
                   ),
 
                   SizedBox(height: 24.h),
                   Text(
-                    'Description',
+                    'description'.tr(),
                     style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8.h),
                   Text(
-                    'Experience audio like never before with the Vision Pro. Featuring industry-leading noise cancellation, spatial audio, and up to 40 hours of battery life. Crafted from premium materials for ultimate comfort during long listening sessions.',
+                    'Experience audio like never before with high-quality sound and premium comfort. Perfect for long listening sessions with advanced features.',
                     style: TextStyle(color: Colors.grey[600], height: 1.5),
                   ),
 
@@ -190,6 +200,51 @@ class ProductDetailsScreen extends StatelessWidget {
                         child: ProductSpecChip(
                           icon: Icons.bluetooth,
                           label: 'BT 5.2',
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 32.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Quantity',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        child: Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                if (_quantity > 1) {
+                                  setState(() => _quantity--);
+                                }
+                              },
+                              icon: const Icon(Icons.remove, size: 20),
+                            ),
+                            Text(
+                              '$_quantity',
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                setState(() => _quantity++);
+                              },
+                              icon: const Icon(Icons.add, size: 20),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -295,7 +350,13 @@ class ProductDetailsScreen extends StatelessWidget {
             Expanded(
               child: ElevatedButton.icon(
                 onPressed: () {
-                  provider.addToCart(prod);
+                  provider.addToCart(prod, qty: _quantity);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Added $_quantity to cart'),
+                      duration: const Duration(seconds: 1),
+                    ),
+                  );
                 },
                 icon: const Icon(Icons.shopping_cart),
                 label: const Text('Add to Cart'),

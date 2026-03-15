@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 
 class CartTotalBar extends StatelessWidget {
@@ -9,7 +10,7 @@ class CartTotalBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final subtotal = items.fold<double>(0, (sum, item) => sum + item.price);
+    final subtotal = items.fold<double>(0, (sum, item) => sum + (item.price * item.quantity));
 
     const delivery = 10.0;
     final total = subtotal + delivery;
@@ -31,11 +32,11 @@ class CartTotalBar extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _row('Subtotal', subtotal),
+            _row('subtotal'.tr(), subtotal),
             SizedBox(height: 6.h),
-            _row('Delivery', delivery),
+            _row('delivery'.tr(), delivery),
             Divider(height: 20.h),
-            _row('Total', total, isBold: true),
+            _row('total'.tr(), total, isBold: true),
             SizedBox(height: 12.h),
 
             /// Checkout Button
@@ -50,7 +51,7 @@ class CartTotalBar extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Checkout  \$${total.toStringAsFixed(2)}',
+                  '${'checkout'.tr()}  \$${total.toStringAsFixed(2)}',
                   style: TextStyle(fontSize: 16.sp),
                 ),
               ),

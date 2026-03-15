@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor_e_commerce/dammy/data/Categor_list.dart';
 import 'package:multi_vendor_e_commerce/dammy/data/sellers_list.dart';
 import 'package:provider/provider.dart';
@@ -45,9 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Icon(Icons.storefront, color: Colors.white, size: 20.w),
           ),
         ),
-        title: const Text(
-          'SwiftMarket',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Text(
+          'app_title'.tr(),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
           // IconButton(
@@ -57,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Consumer<ProductProvider>(
             builder: (context, provider, _) {
               return IconButton(
-                icon: Icon(Icons.favorite, color: Colors.grey),
+                icon: const Icon(Icons.favorite, color: Colors.grey),
                 onPressed: () => GoRouter.of(context).go('/wishlist'),
               );
             },
@@ -72,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 16.h),
             // Popular Sellers Header
             Text(
-              'Popular Sellers',
+              'popular_sellers'.tr(),
               style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16.h),
@@ -109,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Categories',
+                  'categories'.tr(),
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
@@ -151,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Featured Products',
+                  'featured_products'.tr(),
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.bold,

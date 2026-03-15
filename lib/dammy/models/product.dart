@@ -9,6 +9,8 @@ class Product {
   bool inStock;
   bool isFavorite;
 
+  int quantity;
+
   Product({
     required this.id,
     required this.name,
@@ -19,6 +21,7 @@ class Product {
     this.originalPrice,
     this.inStock = true,
     this.isFavorite = false,
+    this.quantity = 1,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -34,6 +37,7 @@ class Product {
           : null,
       inStock: json['inStock'] as bool? ?? true,
       isFavorite: json['isFavorite'] as bool? ?? false,
+      quantity: json['quantity'] as int? ?? 1,
     );
   }
 
@@ -48,6 +52,7 @@ class Product {
       'originalPrice': originalPrice,
       'inStock': inStock,
       'isFavorite': isFavorite,
+      'quantity': quantity,
     };
   }
 }

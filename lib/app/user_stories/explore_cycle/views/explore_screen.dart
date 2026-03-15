@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
@@ -83,7 +84,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: const Text('Low to High'),
+              title: Text('low_to_high'.tr()),
               leading: Radio<bool>(
                 value: true,
                 groupValue: _priceAscending,
@@ -96,7 +97,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
               ),
             ),
             ListTile(
-              title: const Text('High to Low'),
+              title: Text('high_to_low'.tr()),
               leading: Radio<bool>(
                 value: false,
                 groupValue: _priceAscending,
@@ -146,7 +147,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 padding: const EdgeInsets.all(16),
                 child: ElevatedButton(
                   onPressed: () => Navigator.of(ctx).pop(),
-                  child: const Text('Done'),
+                  child: Text('done'.tr()),
                 ),
               ),
             );
@@ -186,7 +187,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 padding: const EdgeInsets.all(16),
                 child: ElevatedButton(
                   onPressed: () => Navigator.of(ctx).pop(),
-                  child: const Text('Done'),
+                  child: Text('done'.tr()),
                 ),
               ),
             );
@@ -202,7 +203,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Explore Marketplace',
+          'explore_marketplace'.tr(),
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
         actions: [
@@ -221,7 +222,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                hintText: 'Search products, brands...',
+                hintText: 'search_hint'.tr(),
                 prefixIcon: const Icon(
                   Icons.search,
                   color: AppColors.textSecondary,
@@ -262,7 +263,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     );
                   },
                   child: ExploreFilterChip(
-                    label: 'Filters',
+                    label: 'filters'.tr(),
                     icon: Icons.tune,
                     isSelected: _selectedCategories.isNotEmpty,
                   ),
@@ -270,7 +271,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 GestureDetector(
                   onTap: () => _showPriceSortDialog(),
                   child: ExploreFilterChip(
-                    label: 'Price',
+                    label: 'price'.tr(),
                     icon: Icons.keyboard_arrow_down,
                     isSelected: true, // always allow sort
                   ),
@@ -281,7 +282,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     _showPriceSortDialog();
                   },
                   child: ExploreFilterChip(
-                    label: 'Rating',
+                    label: 'rating'.tr(),
                     icon: Icons.keyboard_arrow_down,
                     isSelected: false,
                   ),
@@ -296,7 +297,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     );
                   },
                   child: ExploreFilterChip(
-                    label: 'Brand',
+                    label: 'brand'.tr(),
                     icon: Icons.keyboard_arrow_down,
                     isSelected: _selectedVendors.isNotEmpty,
                   ),
@@ -327,7 +328,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
                 final products = _applyFilterAndSort(provider.products);
                 if (products.isEmpty) {
-                  return const Center(child: Text('No products match'));
+                  return Center(child: Text('no_products_match'.tr()));
                 }
                 return ListView.builder(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),

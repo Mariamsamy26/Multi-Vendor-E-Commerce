@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
@@ -19,20 +20,20 @@ class WishlistScreen extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
               title: Text(
-                'Wishlist',
+                'wishlist'.tr(),
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
               ),
               actions: [
                 IconButton(icon: const Icon(Icons.search), onPressed: () {}),
                 IconButton(
                   icon: const Icon(Icons.delete_sweep),
-                  tooltip: 'Clear all',
+                  tooltip: 'clear_all'.tr(),
                   onPressed: () {
                     provider.clearWishlist();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Wishlist cleared'),
-                        duration: Duration(seconds: 1),
+                      SnackBar(
+                        content: Text('wishlist_cleared'.tr()),
+                        duration: const Duration(seconds: 1),
                       ),
                     );
                   },
@@ -43,8 +44,8 @@ class WishlistScreen extends StatelessWidget {
                 unselectedLabelColor: AppColors.textSecondary,
                 indicatorColor: AppColors.primary,
                 tabs: [
-                  Tab(text: 'All Items (${wishlist.length})'),
-                  const Tab(text: 'Collections'),
+                  Tab(text: 'all_items'.tr(args: [wishlist.length.toString()])),
+                  Tab(text: 'collections'.tr()),
                 ],
               ),
             ),

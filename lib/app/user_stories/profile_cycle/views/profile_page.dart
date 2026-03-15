@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 import 'package:multi_vendor_e_commerce/dammy/providers/profile_provider.dart';
 import '../widget/profile_info_row.dart';
@@ -22,18 +23,28 @@ class ProfileScreen extends StatelessWidget {
 
         final profile = profileProvider.profile;
         if (profile == null) {
-          return const Scaffold(
-            body: Center(child: Text("Error loading profile.")),
+          return Scaffold(
+            body: Center(child: Text("error_loading_profile".tr())),
           );
         }
 
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'My Profile',
+              'my_profile'.tr(),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
             ),
             actions: [
+              IconButton(
+                icon: const Icon(Icons.language),
+                onPressed: () {
+                  if (context.locale == const Locale('en')) {
+                    context.setLocale(const Locale('ar'));
+                  } else {
+                    context.setLocale(const Locale('en'));
+                  }
+                },
+              ),
               IconButton(
                 icon: const Icon(Icons.settings_outlined),
                 onPressed: () {},
@@ -105,7 +116,7 @@ class ProfileScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'PERSONAL INFORMATION',
+                            'personal_information'.tr().toUpperCase(),
                             style: TextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.bold,
@@ -116,9 +127,9 @@ class ProfileScreen extends StatelessWidget {
                             onPressed: () {
                               Navigation().goToScreen(context, '/edit-profile');
                             },
-                            child: const Text(
-                              'Edit',
-                              style: TextStyle(color: AppColors.primary),
+                            child: Text(
+                              'edit'.tr(),
+                              style: const TextStyle(color: AppColors.primary),
                             ),
                           ),
                         ],
@@ -126,19 +137,19 @@ class ProfileScreen extends StatelessWidget {
                       SizedBox(height: 8.h),
                       ProfileInfoRow(
                         icon: Icons.person_outline,
-                        label: 'FULL NAME',
+                        label: 'full_name'.tr().toUpperCase(),
                         value: profile.fullName,
                       ),
                       const Divider(),
                       ProfileInfoRow(
                         icon: Icons.phone_outlined,
-                        label: 'PHONE NUMBER',
+                        label: 'phone_number'.tr().toUpperCase(),
                         value: profile.phoneNumber,
                       ),
                       const Divider(),
                       ProfileInfoRow(
                         icon: Icons.calendar_today_outlined,
-                        label: 'DATE OF BIRTH',
+                        label: 'date_of_birth'.tr().toUpperCase(),
                         value: profile.dateOfBirth,
                       ),
 
@@ -149,7 +160,7 @@ class ProfileScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'SAVED ADDRESSES',
+                            'saved_addresses'.tr().toUpperCase(),
                             style: TextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.bold,
@@ -159,7 +170,7 @@ class ProfileScreen extends StatelessWidget {
                           TextButton.icon(
                             onPressed: () {},
                             icon: Icon(Icons.add, size: 16.w),
-                            label: const Text('Add New'),
+                            label: Text('add_new'.tr()),
                           ),
                         ],
                       ),

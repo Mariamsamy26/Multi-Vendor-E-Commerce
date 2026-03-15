@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
@@ -105,8 +106,8 @@ class _HomeProductCardState extends State<HomeProductCard> {
                           SnackBar(
                             content: Text(
                               widget.product.isFavorite
-                                  ? 'Added to wishlist'
-                                  : 'Removed from wishlist',
+                                  ? 'added_to_wishlist'.tr()
+                                  : 'removed_from_wishlist'.tr(),
                             ),
                             duration: const Duration(seconds: 1),
                           ),
@@ -141,7 +142,7 @@ class _HomeProductCardState extends State<HomeProductCard> {
                           borderRadius: BorderRadius.circular(4.r),
                         ),
                         child: Text(
-                          'SALE',
+                          'sale'.tr().toUpperCase(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 10.sp,
@@ -193,9 +194,9 @@ class _HomeProductCardState extends State<HomeProductCard> {
                         onTap: () {
                           provider.addToCart(widget.product);
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Added to cart'),
-                              duration: Duration(seconds: 1),
+                            SnackBar(
+                              content: Text('added_to_cart_generic'.tr()),
+                              duration: const Duration(seconds: 1),
                             ),
                           );
                         },

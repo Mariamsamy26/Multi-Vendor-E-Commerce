@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 
@@ -40,7 +41,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Edit Profile',
+          'edit_profile'.tr(),
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
       ),
@@ -53,7 +54,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Center(
               child: Stack(
                 children: [
-                  CircleAvatar(
+                   CircleAvatar(
                     radius: 50.r,
                     backgroundColor: const Color(0xFFE5E7EB),
                     child: Icon(Icons.person, size: 60.w, color: Colors.grey),
@@ -65,9 +66,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       onTap: () {
                         // TODO: implement image picker
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Image picker coming soon'),
-                            duration: Duration(seconds: 1),
+                          SnackBar(
+                            content: Text('image_picker_coming_soon'.tr()),
+                            duration: const Duration(seconds: 1),
                           ),
                         );
                       },
@@ -90,27 +91,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             // Form fields
             _buildTextField(
               controller: _nameController,
-              label: 'Full Name',
+              label: 'full_name'.tr(),
               icon: Icons.person_outline,
             ),
             SizedBox(height: 16.h),
             _buildTextField(
               controller: _emailController,
-              label: 'Email Address',
+              label: 'email_address'.tr(),
               icon: Icons.email_outlined,
               keyboardType: TextInputType.emailAddress,
             ),
             SizedBox(height: 16.h),
             _buildTextField(
               controller: _phoneController,
-              label: 'Phone Number',
+              label: 'phone_number'.tr(),
               icon: Icons.phone_outlined,
               keyboardType: TextInputType.phone,
             ),
             SizedBox(height: 16.h),
             _buildTextField(
               controller: _dobController,
-              label: 'Date of Birth',
+              label: 'date_of_birth'.tr(),
               icon: Icons.calendar_today_outlined,
               readOnly: true,
               onTap: () {
@@ -126,9 +127,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 onPressed: () {
                   // TODO: save profile changes
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Profile updated successfully'),
-                      duration: Duration(seconds: 1),
+                    SnackBar(
+                      content: Text('profile_updated_successfully'.tr()),
+                      duration: const Duration(seconds: 1),
                     ),
                   );
                   Navigation().closeDialog(context);
@@ -139,7 +140,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                 ),
                 child: Text(
-                  'Save Changes',
+                  'save_changes'.tr(),
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,

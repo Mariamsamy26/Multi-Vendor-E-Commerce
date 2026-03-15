@@ -16,6 +16,7 @@ import 'package:multi_vendor_e_commerce/app/user_stories/explore_cycle/views/exp
 import 'package:multi_vendor_e_commerce/app/user_stories/wishlist_cycle/views/wishlist_page.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/cart_cycle/views/cart_screen.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/cart_cycle/views/checkout_screen.dart';
+import 'package:multi_vendor_e_commerce/app/user_stories/orders_cycle/views/rate_order_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'root',
@@ -75,6 +76,11 @@ class AppRouter {
         path: '/order-details',
         builder: (context, state) =>
             OrderDetailsScreen(order: state.extra as OrderModel),
+      ),
+      GoRoute(
+        path: '/rate-order',
+        builder: (context, state) =>
+            RateOrderScreen(order: state.extra as OrderModel),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

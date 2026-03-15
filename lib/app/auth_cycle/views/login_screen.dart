@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 
@@ -11,7 +12,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Welcome back',
+          'welcome_back'.tr(),
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
       ),
@@ -45,9 +46,9 @@ class LoginScreen extends StatelessWidget {
                           ],
                         ),
                         alignment: Alignment.center,
-                        child: const Text(
-                          'Sign In',
-                          style: TextStyle(
+                        child: Text(
+                          'sign_in'.tr(),
+                          style: const TextStyle(
                             fontWeight: FontWeight.w600,
                             color: AppColors.primary,
                           ),
@@ -58,9 +59,9 @@ class LoginScreen extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         alignment: Alignment.center,
-                        child: const Text(
-                          'Create Account',
-                          style: TextStyle(
+                        child: Text(
+                          'create_account'.tr(),
+                          style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             color: AppColors.textSecondary,
                           ),
@@ -73,7 +74,7 @@ class LoginScreen extends StatelessWidget {
               SizedBox(height: 32.h),
 
               Text(
-                'Marketplace Access',
+                'marketplace_access'.tr(),
                 style: TextStyle(
                   fontSize: 28.sp,
                   fontWeight: FontWeight.bold,
@@ -83,7 +84,7 @@ class LoginScreen extends StatelessWidget {
               ),
               SizedBox(height: 8.h),
               Text(
-                'Manage your vendor dashboard or start shopping.',
+                'manage_dashboard'.tr(),
                 style: TextStyle(fontSize: 16.sp, color: AppColors.textSecondary),
                 textAlign: TextAlign.center,
               ),
@@ -91,14 +92,14 @@ class LoginScreen extends StatelessWidget {
 
               // Email or Phone Number
               Text(
-                'Email or Phone Number',
+                'email_or_phone'.tr(),
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp),
               ),
               SizedBox(height: 8.h),
               TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'e.g. name@example.com',
-                  prefixIcon: Icon(
+                decoration: InputDecoration(
+                  hintText: 'email_hint'.tr(),
+                  prefixIcon: const Icon(
                     Icons.email_outlined,
                     color: AppColors.textSecondary,
                   ),
@@ -111,15 +112,15 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Password',
+                    'password'.tr(),
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp),
                   ),
                   TextButton(
                     style: TextButton.styleFrom(padding: EdgeInsets.zero),
                     onPressed: () {},
-                    child: const Text(
-                      'Forgot password?',
-                      style: TextStyle(
+                    child: Text(
+                      'forgot_password'.tr(),
+                      style: const TextStyle(
                         color: AppColors.primary,
                         fontWeight: FontWeight.w600,
                       ),
@@ -130,13 +131,13 @@ class LoginScreen extends StatelessWidget {
               SizedBox(height: 4.h),
               TextFormField(
                 obscureText: true,
-                decoration: const InputDecoration(
-                  hintText: '••••••••',
-                  prefixIcon: Icon(
+                decoration: InputDecoration(
+                  hintText: 'password_hint'.tr(),
+                  prefixIcon: const Icon(
                     Icons.lock_outline,
                     color: AppColors.textSecondary,
                   ),
-                  suffixIcon: Icon(
+                  suffixIcon: const Icon(
                     Icons.visibility_off_outlined,
                     color: AppColors.textSecondary,
                   ),
@@ -148,7 +149,7 @@ class LoginScreen extends StatelessWidget {
                 onPressed: () {
                   Navigation().goToScreen(context, '/home');
                 },
-                child: Text('Sign In', style: TextStyle(fontSize: 16.sp)),
+                child: Text('sign_in'.tr(), style: TextStyle(fontSize: 16.sp)),
               ),
 
               SizedBox(height: 32.h),
@@ -158,7 +159,7 @@ class LoginScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
-                      'OR CONTINUE WITH',
+                      'or_continue_with'.tr(),
                       style: TextStyle(
                         color: AppColors.textSecondary,
                         fontSize: 12.sp,
@@ -181,9 +182,9 @@ class LoginScreen extends StatelessWidget {
                         color: Colors.black,
                         size: 28,
                       ), // Placeholder for Google Icon
-                      label: const Text(
-                        'Google',
-                        style: TextStyle(color: AppColors.textPrimary),
+                      label: Text(
+                        'google'.tr(),
+                        style: const TextStyle(color: AppColors.textPrimary),
                       ),
                     ),
                   ),
@@ -196,9 +197,9 @@ class LoginScreen extends StatelessWidget {
                         color: Colors.black,
                         size: 28,
                       ), // Placeholder for Apple Icon
-                      label: const Text(
-                        'Apple',
-                        style: TextStyle(color: AppColors.textPrimary),
+                      label: Text(
+                        'apple'.tr(),
+                        style: const TextStyle(color: AppColors.textPrimary),
                       ),
                     ),
                   ),
@@ -214,23 +215,26 @@ class LoginScreen extends StatelessWidget {
                     fontSize: 12.sp,
                   ),
                   children: [
-                    TextSpan(text: 'By signing in, you agree to our '),
+                    TextSpan(text: 'by_signing_in'.tr()),
+                    const TextSpan(text: ' '),
                     TextSpan(
-                      text: 'Terms of Service',
-                      style: TextStyle(
+                      text: 'terms_of_service'.tr(),
+                      style: const TextStyle(
                         color: AppColors.primary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    TextSpan(text: ' and '),
+                    const TextSpan(text: ' '),
+                    TextSpan(text: 'and'.tr()),
+                    const TextSpan(text: ' '),
                     TextSpan(
-                      text: 'Privacy Policy',
-                      style: TextStyle(
+                      text: 'privacy_policy'.tr(),
+                      style: const TextStyle(
                         color: AppColors.primary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    TextSpan(text: '.'),
+                    const TextSpan(text: '.'),
                   ],
                 ),
               ),

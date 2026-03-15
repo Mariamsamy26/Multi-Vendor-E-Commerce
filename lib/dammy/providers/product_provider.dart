@@ -59,16 +59,36 @@ class ProductProvider extends ChangeNotifier {
     return true;
   }
 
-  /// Add [product] to the cart. Duplicates are allowed.
-  void addToCart(Product product) {
-    _cart.add(product);
+  /// Add [product] to the cart. If the product already exists, increment its quantity.
+  void addToCart(Product product, {int qty = 1}) {
+    final index = _cart.indexWhere((p) => p.id == product.id);
+    if (index != -1) {
+      _cart[index].quantity += qty;
+    } else {
+      product.quantity = qty;
+      _cart.add(product);
+    }
     _saveCart();
     notifyListeners();
   }
 
-  /// Remove a single instance of [product] from the cart if it exists.
+  /// Update the quantity of a product in the cart.
+  void updateQuantity(Product product, int newQty) {
+    final index = _cart.indexWhere((p) => p.id == product.id);
+    if (index != -1) {
+      if (newQty <= 0) {
+        _cart.removeAt(index);
+      } else {
+        _cart[index].quantity = newQty;
+      }
+      _saveCart();
+      notifyListeners();
+    }
+  }
+
+  /// Remove a [product] from the cart completely.
   void removeFromCart(Product product) {
-    _cart.remove(product);
+    _cart.removeWhere((p) => p.id == product.id);
     _saveCart();
     notifyListeners();
   }

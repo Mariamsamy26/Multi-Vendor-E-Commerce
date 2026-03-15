@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor_e_commerce/app/user_stories/cart_cycle/widget/cart_total.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,7 @@ class CartScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Shopping Cart',
+              'shopping_cart'.tr(),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
             ),
             actions: [
@@ -30,7 +31,7 @@ class CartScreen extends StatelessWidget {
             ],
           ),
           body: items.isEmpty
-              ? const Center(child: Text('Your cart is empty'))
+              ? Center(child: Text('empty_cart'.tr()))
               : Column(
                   children: [
                     Expanded(

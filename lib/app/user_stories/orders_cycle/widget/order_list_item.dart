@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor_e_commerce/dammy/models/order.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
@@ -61,7 +62,7 @@ class OrderListItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Order #${order.id}',
+                        '${'orders'.tr()} #${order.id}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14.sp,
@@ -88,7 +89,7 @@ class OrderListItem extends StatelessWidget {
 
                   /// meta row
                   Text(
-                    '${order.products.length} items • '
+                    '${order.products.length} ${'items'.tr()} • '
                     '${order.date.day}/${order.date.month}/${order.date.year}',
                     style: TextStyle(fontSize: 12.sp, color: Colors.grey),
                   ),
@@ -121,7 +122,7 @@ class OrderListItem extends StatelessWidget {
                             },
                             icon: Icon(Icons.star, size: 16.w),
                             label: Text(
-                              "Rate",
+                              "rate".tr(),
                               style: TextStyle(fontSize: 12.sp),
                             ),
                             style: ElevatedButton.styleFrom(
@@ -157,31 +158,31 @@ class OrderListItem extends StatelessWidget {
       case OrderStatus.delivered:
         color = Colors.green;
         icon = Icons.check_circle;
-        text = "Delivered";
+        text = "delivered".tr();
         break;
 
       case OrderStatus.processing:
         color = Colors.orange;
         icon = Icons.schedule;
-        text = "Processing";
+        text = "processing".tr();
         break;
 
       case OrderStatus.cancelled:
         color = Colors.red;
         icon = Icons.cancel;
-        text = "Cancelled";
+        text = "cancelled".tr();
         break;
 
       default:
         color = Colors.blue;
         icon = Icons.local_shipping;
-        text = "Shipped";
+        text = "shipped".tr();
     }
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
+        color: color.withOpacity(0.12),
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: Row(
