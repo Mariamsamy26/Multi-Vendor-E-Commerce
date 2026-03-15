@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
@@ -88,8 +89,8 @@ class ExploreProductListItem extends StatelessWidget {
                             SnackBar(
                               content: Text(
                                 added
-                                    ? 'Added to wishlist'
-                                    : 'Removed from wishlist',
+                                    ? 'added_to_wishlist'.tr()
+                                    : 'removed_from_wishlist'.tr(),
                               ),
                               duration: const Duration(seconds: 1),
                             ),
@@ -150,6 +151,12 @@ class ExploreProductListItem extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           provider.addToCart(product);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('added_to_cart_generic'.tr()),
+                              duration: const Duration(seconds: 1),
+                            ),
+                          );
                         },
                         child: Container(
                           padding: EdgeInsets.all(6.w),

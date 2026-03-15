@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
@@ -53,9 +54,9 @@ class _SellerProductsScreenState extends State<SellerProductsScreen> {
             icon: const Icon(Icons.filter_list),
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Filter feature coming soon'),
-                  duration: Duration(seconds: 1),
+                SnackBar(
+                  content: Text('filter_feature_coming_soon'.tr()),
+                  duration: const Duration(seconds: 1),
                 ),
               );
             },
@@ -88,7 +89,7 @@ class _SellerProductsScreenState extends State<SellerProductsScreen> {
                   ),
                   SizedBox(height: 16.h),
                   Text(
-                    'No products available',
+                    'no_products_available'.tr(),
                     style: TextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
@@ -97,7 +98,7 @@ class _SellerProductsScreenState extends State<SellerProductsScreen> {
                   ),
                   SizedBox(height: 8.h),
                   Text(
-                    'from $sellerName',
+                    'from_seller'.tr(args: [sellerName]),
                     style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
                   ),
                 ],
@@ -154,7 +155,7 @@ class _SellerProductsScreenState extends State<SellerProductsScreen> {
                             ),
                             SizedBox(height: 4.h),
                             Text(
-                              '${sellerProducts.length} Products',
+                              'products_count'.tr(args: [sellerProducts.length.toString()]),
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: Colors.grey[600],
@@ -180,7 +181,7 @@ class _SellerProductsScreenState extends State<SellerProductsScreen> {
                                   ),
                                   SizedBox(width: 4.w),
                                   Text(
-                                    'Verified Seller',
+                                    'verified_seller'.tr(),
                                     style: TextStyle(
                                       fontSize: 12.sp,
                                       color: Colors.green,
@@ -201,7 +202,7 @@ class _SellerProductsScreenState extends State<SellerProductsScreen> {
                 // Search Bar
                 TextField(
                   decoration: InputDecoration(
-                    hintText: 'Search $sellerName products...',
+                    hintText: 'search_seller_products_hint'.tr(args: [sellerName]),
                     prefixIcon: const Icon(
                       Icons.search,
                       color: AppColors.textSecondary,

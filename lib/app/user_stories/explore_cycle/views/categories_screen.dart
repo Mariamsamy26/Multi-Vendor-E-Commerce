@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 import '../widget/explore_category_card.dart';
 import '../widget/explore_collection_card.dart';
@@ -13,7 +14,7 @@ class CategoriesScreen extends StatelessWidget {
       appBar: AppBar(
         leading: const BackButton(),
         title: Text(
-          'Categories',
+          'categories'.tr(),
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
         actions: [
@@ -30,7 +31,7 @@ class CategoriesScreen extends StatelessWidget {
           children: [
             TextField(
               decoration: InputDecoration(
-                hintText: 'Search for electronics, fashion...',
+                hintText: 'search_categories_hint'.tr(),
                 prefixIcon: const Icon(
                   Icons.search,
                   color: AppColors.textSecondary,
@@ -50,9 +51,9 @@ class CategoriesScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'MAIN DEPARTMENTS',
+                  'main_departments'.tr().toUpperCase(),
                   style: TextStyle(
-                    fontSize: 12.sp, // Will test screen utilization on this one
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.bold,
                     color: AppColors.textSecondary,
                   ),
@@ -60,7 +61,7 @@ class CategoriesScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () {},
                   child: Text(
-                    'View All',
+                    'view_all'.tr(),
                     style: TextStyle(fontSize: 12.sp, color: AppColors.primary),
                   ),
                 ),
@@ -77,34 +78,34 @@ class CategoriesScreen extends StatelessWidget {
               crossAxisSpacing: 16.w,
               childAspectRatio: 1.1,
               children: [
-                const ExploreCategoryCard(
-                  title: 'Electronics',
-                  subtitle: '1.2k+ Items',
+                ExploreCategoryCard(
+                  title: 'electronics'.tr(),
+                  subtitle: 'items_count'.tr(args: ['1.2k+']),
                   color: Colors.black87,
                 ),
                 ExploreCategoryCard(
-                  title: 'Fashion',
-                  subtitle: '4.3k+ Items',
+                  title: 'fashion'.tr(),
+                  subtitle: 'items_count'.tr(args: ['4.3k+']),
                   color: Colors.brown[300]!,
                 ),
                 ExploreCategoryCard(
-                  title: 'Home & Living',
-                  subtitle: '2.8k+ Items',
+                  title: 'home_living'.tr(),
+                  subtitle: 'items_count'.tr(args: ['2.8k+']),
                   color: Colors.grey[400]!,
                 ),
                 ExploreCategoryCard(
-                  title: 'Beauty',
-                  subtitle: '950 Items',
+                  title: 'beauty'.tr(),
+                  subtitle: 'items_count'.tr(args: ['950']),
                   color: Colors.pink[200]!,
                 ),
                 ExploreCategoryCard(
-                  title: 'Sports',
-                  subtitle: '1.5k+ Items',
+                  title: 'sports'.tr(),
+                  subtitle: 'items_count'.tr(args: ['1.5k+']),
                   color: Colors.green[300]!,
                 ),
                 ExploreCategoryCard(
-                  title: 'Toys & Games',
-                  subtitle: '600+ Items',
+                  title: 'toys_games'.tr(),
+                  subtitle: 'items_count'.tr(args: ['600+']),
                   color: Colors.teal[300]!,
                 ),
               ],
@@ -112,7 +113,7 @@ class CategoriesScreen extends StatelessWidget {
 
             SizedBox(height: 32.h),
             Text(
-              'POPULAR COLLECTIONS',
+              'popular_collections'.tr().toUpperCase(),
               style: TextStyle(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.bold,
@@ -121,22 +122,22 @@ class CategoriesScreen extends StatelessWidget {
             ),
             SizedBox(height: 16.h),
 
-            const ExploreCollectionCard(
+            ExploreCollectionCard(
               icon: Icons.flash_on,
-              title: 'Flash Sale',
-              subtitle: 'Up to 70% off daily deals',
+              title: 'flash_sale'.tr(),
+              subtitle: 'flash_sale_subtitle'.tr(),
               iconColor: Colors.blue,
             ),
-            const ExploreCollectionCard(
+            ExploreCollectionCard(
               icon: Icons.eco,
-              title: 'Eco-Friendly',
-              subtitle: 'Sustainable lifestyle choices',
+              title: 'eco_friendly'.tr(),
+              subtitle: 'eco_friendly_subtitle'.tr(),
               iconColor: Colors.green,
             ),
-            const ExploreCollectionCard(
+            ExploreCollectionCard(
               icon: Icons.new_releases,
-              title: 'New Arrivals',
-              subtitle: 'Fresh items added this week',
+              title: 'new_arrivals'.tr(),
+              subtitle: 'new_arrivals_subtitle'.tr(),
               iconColor: Colors.orange,
             ),
           ],

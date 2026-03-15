@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
 
 class RootScreen extends StatelessWidget {
@@ -19,31 +20,31 @@ class RootScreen extends StatelessWidget {
             initialLocation: index == navigationShell.currentIndex,
           );
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
-            label: 'Home',
+            icon: const Icon(Icons.home_outlined),
+            activeIcon: const Icon(Icons.home),
+            label: 'home'.tr(),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.explore_outlined),
-            activeIcon: Icon(Icons.explore),
-            label: 'Explore',
+            icon: const Icon(Icons.explore_outlined),
+            activeIcon: const Icon(Icons.explore),
+            label: 'explore_marketplace'.tr(),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag_outlined),
-            activeIcon: Icon(Icons.shopping_bag),
-            label: 'Orders',
+            icon: const Icon(Icons.shopping_bag_outlined),
+            activeIcon: const Icon(Icons.shopping_bag),
+            label: 'orders'.tr(),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_outlined),
-            activeIcon: Icon(Icons.shopping_cart),
-            label: 'Cart',
+            icon: const Icon(Icons.shopping_cart_outlined),
+            activeIcon: const Icon(Icons.shopping_cart),
+            label: 'shopping_cart'.tr(),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            activeIcon: Icon(Icons.person),
-            label: 'Profile',
+            icon: const Icon(Icons.person_outline),
+            activeIcon: const Icon(Icons.person),
+            label: 'profile'.tr(),
           ),
         ],
       ),

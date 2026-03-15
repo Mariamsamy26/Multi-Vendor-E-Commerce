@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor_e_commerce/dammy/models/order.dart';
 import 'package:multi_vendor_e_commerce/dammy/providers/order_provider.dart';
 import 'package:provider/provider.dart';
@@ -38,19 +39,19 @@ class OrdersScreen extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
               title: Text(
-                'Order History',
+                'order_history'.tr(),
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
               ),
-              bottom: const TabBar(
+              bottom: TabBar(
                 isScrollable: true,
                 labelColor: AppColors.primary,
                 unselectedLabelColor: AppColors.textSecondary,
                 indicatorColor: AppColors.primary,
                 tabs: [
-                  Tab(text: 'All Orders'),
-                  Tab(text: 'Ongoing'),
-                  Tab(text: 'Completed'),
-                  Tab(text: 'cancelled'),
+                  Tab(text: 'all_orders'.tr()),
+                  Tab(text: 'ongoing'.tr()),
+                  Tab(text: 'completed'.tr()),
+                  Tab(text: 'cancelled'.tr()),
                 ],
               ),
             ),
@@ -60,7 +61,7 @@ class OrdersScreen extends StatelessWidget {
                   padding: EdgeInsets.all(16.0.w),
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: 'Search your orders...',
+                      hintText: 'search_orders_hint'.tr(),
                       prefixIcon: const Icon(
                         Icons.search,
                         color: AppColors.textSecondary,
@@ -96,7 +97,7 @@ class OrdersScreen extends StatelessWidget {
 
   Widget _buildOrdersList(List<OrderModel> orders) {
     if (orders.isEmpty) {
-      return const Center(child: Text('No orders found'));
+      return Center(child: Text('no_orders_found_message'.tr()));
     }
 
     return ListView.builder(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor_e_commerce/services/navigation_helper.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 import '../../../../dammy/models/product.dart';
@@ -80,7 +81,7 @@ class WishlistItem extends StatelessWidget {
 
                   /// Stock
                   Text(
-                    inStock ? 'IN STOCK' : 'OUT OF STOCK',
+                    inStock ? 'in_stock'.tr().toUpperCase() : 'out_of_stock'.tr().toUpperCase(),
                     style: TextStyle(
                       color: inStock ? Colors.green : Colors.red,
                       fontWeight: FontWeight.bold,
@@ -131,8 +132,8 @@ class WishlistItem extends StatelessWidget {
                               SnackBar(
                                 content: Text(
                                   removed
-                                      ? 'Removed from wishlist'
-                                      : 'Something went wrong',
+                                      ? 'removed_from_wishlist'.tr()
+                                      : 'something_went_wrong'.tr(),
                                 ),
                                 duration: const Duration(seconds: 1),
                               ),
@@ -140,7 +141,7 @@ class WishlistItem extends StatelessWidget {
                           },
                           icon: Icon(Icons.delete_outline, size: 15.w),
                           label: Text(
-                            'Remove',
+                            'remove'.tr(),
                             style: TextStyle(fontSize: 13.sp),
                           ),
                           style: OutlinedButton.styleFrom(
@@ -163,9 +164,9 @@ class WishlistItem extends StatelessWidget {
                                   provider.addToCart(product);
 
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Added to cart'),
-                                      duration: Duration(seconds: 1),
+                                    SnackBar(
+                                      content: Text('added_to_cart_generic'.tr()),
+                                      duration: const Duration(seconds: 1),
                                     ),
                                   );
                                 }
@@ -178,7 +179,7 @@ class WishlistItem extends StatelessWidget {
                             size: 15.w,
                           ),
                           label: Text(
-                            inStock ? 'Add to Cart' : 'Notify Me',
+                            inStock ? 'add_to_cart'.tr() : 'notify_me'.tr(),
                             style: TextStyle(fontSize: 12.sp),
                           ),
                         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
@@ -54,9 +55,9 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
             icon: const Icon(Icons.filter_list),
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Filter feature coming soon'),
-                  duration: Duration(seconds: 1),
+                SnackBar(
+                  content: Text('filter_feature_coming_soon'.tr()),
+                  duration: const Duration(seconds: 1),
                 ),
               );
             },
@@ -90,7 +91,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                   ),
                   SizedBox(height: 16.h),
                   Text(
-                    'No products found',
+                    'no_products_found'.tr(),
                     style: TextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
@@ -99,7 +100,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                   ),
                   SizedBox(height: 8.h),
                   Text(
-                    'in $categoryName',
+                    'in_category'.tr(args: [categoryName]),
                     style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
                   ),
                 ],
@@ -115,7 +116,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                 // Search Bar
                 TextField(
                   decoration: InputDecoration(
-                    hintText: 'Search in $categoryName...',
+                    hintText: 'search_in_category_hint'.tr(args: [categoryName]),
                     prefixIcon: const Icon(
                       Icons.search,
                       color: AppColors.textSecondary,
@@ -133,7 +134,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
 
                 // Product Count
                 Text(
-                  '${categoryProducts.length} Products',
+                  'products_count'.tr(args: [categoryProducts.length.toString()]),
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: AppColors.textSecondary,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor_e_commerce/styles/colors.dart';
 
 class ProfileAddressCard extends StatelessWidget {
@@ -33,7 +34,10 @@ class ProfileAddressCard extends StatelessWidget {
                 color: AppColors.textSecondary,
               ),
               SizedBox(width: 8.w),
-              Text(type, style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                type == 'Home' ? 'home'.tr() : (type == 'Work' ? 'work'.tr() : type),
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               const Spacer(),
               if (isDefault)
                 Container(
@@ -43,7 +47,7 @@ class ProfileAddressCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: Text(
-                    'DEFAULT',
+                    'default'.tr().toUpperCase(),
                     style: TextStyle(
                       color: AppColors.primary,
                       fontSize: 10.sp,
@@ -69,7 +73,7 @@ class ProfileAddressCard extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                 ),
                 child: Text(
-                  'EDIT',
+                  'edit'.tr().toUpperCase(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 12.sp,
@@ -84,7 +88,7 @@ class ProfileAddressCard extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                 ),
                 child: Text(
-                  'REMOVE',
+                  'remove'.tr().toUpperCase(),
                   style: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,

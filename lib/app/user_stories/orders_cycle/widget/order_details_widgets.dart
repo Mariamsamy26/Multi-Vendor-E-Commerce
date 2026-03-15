@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 import '../../../../dammy/models/order.dart';
 import '../../../../dammy/models/product.dart';
@@ -88,18 +89,18 @@ class OrderTrackingTimeline extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Tracking',
+          'tracking'.tr(),
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
         ),
         SizedBox(height: 10.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            TrackingStep('Processing', step >= 0),
+            TrackingStep('processing'.tr(), step >= 0),
             TrackingLine(step >= 1),
-            TrackingStep('Shipped', step >= 1),
+            TrackingStep('shipped'.tr(), step >= 1),
             TrackingLine(step >= 2),
-            TrackingStep('Delivered', step >= 2),
+            TrackingStep('delivered'.tr(), step >= 2),
           ],
         ),
       ],
@@ -200,25 +201,25 @@ class OrderStatusBadge extends StatelessWidget {
       case OrderStatus.delivered:
         bg = Colors.green.withValues(alpha: 0.12);
         textColor = Colors.green;
-        label = "Delivered";
+        label = "delivered".tr();
         break;
 
       case OrderStatus.shipped:
         bg = Colors.blue.withValues(alpha: 0.12);
         textColor = Colors.blue;
-        label = "Shipped";
+        label = "shipped".tr();
         break;
 
       case OrderStatus.cancelled:
         bg = Colors.red.withValues(alpha: 0.12);
         textColor = Colors.red;
-        label = "Cancelled";
+        label = "cancelled".tr();
         break;
 
       default:
         bg = Colors.grey.withValues(alpha: 0.12);
         textColor = Colors.grey;
-        label = "Processing";
+        label = "processing".tr();
     }
 
     return Row(
@@ -300,7 +301,7 @@ class OrderReorderButton extends StatelessWidget {
             Navigation().goToScreenAndClearAll(context, '/cart');
           },
           child: Text(
-            "Re-Order",
+            "re_order".tr(),
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../../dammy/models/order.dart';
 import '../widget/order_details_widgets.dart';
 import 'package:multi_vendor_e_commerce/dammy/data/orderes_list.dart';
@@ -27,7 +28,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     return Scaffold(
       backgroundColor: const Color(0xffF5F6FA),
 
-      appBar: AppBar(title: const Text('Order Details'), elevation: 0),
+      appBar: AppBar(title: Text('order_details'.tr()), elevation: 0),
 
       /// 🔥 Sticky bottom button
       bottomNavigationBar: OrderReorderButton(order: order),
@@ -41,7 +42,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Order #${order.id}',
+                  '${'orders'.tr()} #${order.id}',
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
@@ -51,7 +52,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 SizedBox(height: 6.h),
 
                 Text(
-                  'Placed on ${order.date.day}/${order.date.month}/${order.date.year}',
+                  '${'placed_on'.tr()} ${order.date.day}/${order.date.month}/${order.date.year}',
                   style: const TextStyle(color: Colors.grey),
                 ),
 
@@ -75,7 +76,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     });
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Order cancelled")),
+                      SnackBar(content: Text("order_cancelled_message".tr())),
                     );
                   },
                 ),
@@ -99,10 +100,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           OrderCard(
             child: Column(
               children: [
-                PriceRow('Subtotal', order.total - 10),
-                PriceRow('Delivery', 10),
+                PriceRow('subtotal'.tr(), order.total - 10),
+                PriceRow('delivery'.tr(), 10),
                 const Divider(),
-                PriceRow('Total', order.total, bold: true),
+                PriceRow('total'.tr(), order.total, bold: true),
               ],
             ),
           ),
